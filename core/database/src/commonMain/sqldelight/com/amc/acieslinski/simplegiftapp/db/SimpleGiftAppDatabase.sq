@@ -1,0 +1,25 @@
+CREATE TABLE Account (
+    name TEXT NOT NULL,
+    surname TEXT NOT NULL,
+    public TEXT NOT NULL,
+    private TEXT NOT NULL
+);
+
+insertAccount:
+INSERT INTO Account(name, surname, public, private)
+VALUES(?, ?, ?, ?);
+
+removeAccount:
+DELETE FROM Account;
+
+selectAccount:
+SELECT Account.*
+FROM Account LIMIT 1;
+
+isAccountEmpty:
+SELECT
+    CASE
+        WHEN COUNT(*) > 0 THEN 0
+        ELSE 1
+    END AS has_rows
+FROM Account;
