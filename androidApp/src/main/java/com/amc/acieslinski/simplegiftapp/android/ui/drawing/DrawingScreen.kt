@@ -22,8 +22,12 @@ import com.amc.acieslinski.simplegiftapp.android.ui.navigation.ScannerNav
 import com.amc.acieslinski.simplegiftapp.drawing.presentation.DrawingUiState
 import com.amc.acieslinski.simplegiftapp.drawing.presentation.DrawingViewModel
 import com.amc.acieslinski.simplegiftapp.drawing.presentation.ParticipantUiState
+import com.amc.acieslinski.simplegiftapp.resources.Res
+import com.amc.acieslinski.simplegiftapp.resources.drawing_participants_add
+import com.amc.acieslinski.simplegiftapp.resources.drawing_participants_title
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import org.jetbrains.compose.resources.stringResource
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -50,14 +54,14 @@ fun DrawingScreen(
                 }
             },
         ) {
-            Text("Add participant")
+            Text(stringResource(Res.string.drawing_participants_add))
         }
     }
 }
 
 @Composable
 fun ParticipantsList(participants: List<ParticipantUiState>) {
-    Text("Participants list")
+    Text(stringResource(Res.string.drawing_participants_title))
 
     LazyColumn {
         items(participants) { (name, surname) ->

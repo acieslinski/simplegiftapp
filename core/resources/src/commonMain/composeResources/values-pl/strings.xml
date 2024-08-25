@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">My awesome app</string>
+    <string name="title">Some title</string>
+    <string name="scanner_hint_scan">Scan your friend's QR code to add them to your participant list</string>
+    <string name="scanner_denied">Camera Permission permanently denied</string>
+    <string name="scanner_permission_request">No Camera Permission</string>
+    <string name="drawing_participants_add">Add participant</string>
+    <string name="drawing_participants_title">Participants list</string>
+    <string name="account_name">Imię</string>
+    <string name="account_surname">Nazwisko</string>
+    <string name="account_register">Zarejestruj</string>
+    <string name="account_register_confirmation_close">Close</string>
+    <string name="account_register_success">Congratulations!\nThe account has been created successfully</string>
+    <string name="account_register_failure">We are sorry\nThe account couldn\'t be created this time. Please try again later.</string>
+</resources>

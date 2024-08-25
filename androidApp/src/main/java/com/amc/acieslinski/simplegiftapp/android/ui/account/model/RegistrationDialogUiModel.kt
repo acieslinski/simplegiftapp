@@ -1,14 +1,16 @@
 package com.amc.acieslinski.simplegiftapp.android.ui.account.model
 
-import androidx.annotation.StringRes
-import com.amc.acieslinski.simplegiftapp.android.R
+import com.amc.acieslinski.simplegiftapp.resources.Res
+import com.amc.acieslinski.simplegiftapp.resources.account_register_failure
+import com.amc.acieslinski.simplegiftapp.resources.account_register_success
+import org.jetbrains.compose.resources.StringResource
 
 sealed class RegistrationDialogUiModel(
-    @StringRes val messageId: Int
+    val messageId: StringResource
 ) {
     data object Confirmation :
-        RegistrationDialogUiModel(R.string.registration_success)
+        RegistrationDialogUiModel(Res.string.account_register_success)
 
     data object UnknownFailure :
-        RegistrationDialogUiModel(R.string.registration_failure)
+        RegistrationDialogUiModel(Res.string.account_register_failure)
 }

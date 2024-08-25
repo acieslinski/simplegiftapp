@@ -4,6 +4,7 @@ import com.android.build.api.dsl.LibraryExtension
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 import versionCatalog
 
@@ -21,8 +22,8 @@ internal fun Project.configureKotlinAndroid(
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 }
 
@@ -48,7 +49,7 @@ internal fun Project.configureKotlinAndroidApp(
     }
     composeOptions {
         kotlinCompilerExtensionVersion =
-            versionCatalog.findVersion("compose-compiler").get().requiredVersion
+            versionCatalog.findPlugin("compose-compiler").get().get().version.requiredVersion
     }
     buildTypes {
         getByName("release") {
@@ -56,12 +57,12 @@ internal fun Project.configureKotlinAndroidApp(
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     project.tasks.withType(KotlinJvmCompile::class.java).configureEach {
         kotlinOptions {
-            jvmTarget = "1.8"
+            jvmTarget = "11"
         }
     }
 }

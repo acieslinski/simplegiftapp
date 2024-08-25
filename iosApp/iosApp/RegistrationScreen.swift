@@ -75,7 +75,7 @@ struct LoginForm: View {
     var body: some View {
         VStack(spacing: 16) {
             VStack(alignment: .leading) {
-                Text("Name")
+                Text(getIosString(resource: iosStringRes.account_name))
                     .font(.caption)
                 TextField("Enter your name", text: $name)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -83,7 +83,7 @@ struct LoginForm: View {
             }
 
             VStack(alignment: .leading) {
-                Text("Surname")
+                Text(getIosString(resource: iosStringRes.account_surname))
                     .font(.caption)
                 TextField("Enter your surname", text: $surname)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -97,7 +97,7 @@ struct LoginForm: View {
             }
 
             Button(action: onRegistrationAction) {
-                Text("Register")
+                Text(getIosString(resource: iosStringRes.account_register))
                     .frame(maxWidth: .infinity)
             }
             .disabled(state.isLoading)

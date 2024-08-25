@@ -14,7 +14,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "SimpleGiftApp"
+rootProject.name = "simplegiftapp"
 includeBuild("convention")
 include(":androidApp")
 include(":drawing")
@@ -29,5 +29,6 @@ include(":core:logger")
 include(":core:network")
 include(":core:database")
 include(":core:configuration")
+include(":core:resources")
 include(":core:ui")
 include(":shared")

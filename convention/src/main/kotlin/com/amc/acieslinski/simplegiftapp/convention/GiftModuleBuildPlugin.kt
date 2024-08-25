@@ -12,6 +12,10 @@ class GiftModuleBuildPlugin: Plugin<Project> {
         with(pluginManager){
             apply(versionCatalog.findPlugin("kotlinMultiplatform").get().get().pluginId)
             apply(versionCatalog.findPlugin("androidLibrary").get().get().pluginId)
+//            apply(versionCatalog.findPlugin("jetbrainsCompose").get().get().pluginId)
+//            apply(versionCatalog.findPlugin("compose-compiler").get().get().pluginId)
+//            alias(libs.plugins.jetbrainsCompose)
+//            alias(libs.plugins.compose.compiler)
         }
 
         extensions.configure(KotlinMultiplatformExtension::class.java, ::configureKotlinMultiplatformModule)

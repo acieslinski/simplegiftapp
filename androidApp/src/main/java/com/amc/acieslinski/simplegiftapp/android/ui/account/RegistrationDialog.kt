@@ -16,11 +16,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.amc.acieslinski.simplegiftapp.account.presentation.model.RegistrationDialogState
 import com.amc.acieslinski.simplegiftapp.android.ui.account.mapper.RegistrationDialogStateMapper
+import com.amc.acieslinski.simplegiftapp.resources.Res
+import com.amc.acieslinski.simplegiftapp.resources.account_register_confirmation_close
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun RegistrationDialog(
@@ -50,12 +52,12 @@ fun RegistrationDialog(
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text(text = stringResource(id = uiRegistrationNotification.messageId))
+                    Text(text = stringResource(uiRegistrationNotification.messageId))
                     Spacer(modifier = Modifier.height(16.dp))
                     Button(onClick = {
                         onDismiss()
                     }) {
-                        Text(text = "Close")
+                        Text(text = stringResource(Res.string.account_register_confirmation_close))
                     }
                 }
             }

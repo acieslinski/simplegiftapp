@@ -12,10 +12,15 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.amc.acieslinski.simplegiftapp.resources.Res
+import com.amc.acieslinski.simplegiftapp.resources.scanner_denied
+import com.amc.acieslinski.simplegiftapp.resources.scanner_hint_scan
+import com.amc.acieslinski.simplegiftapp.resources.scanner_permission_request
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 import com.google.accompanist.permissions.shouldShowRationale
+import org.jetbrains.compose.resources.stringResource
 
 @ExperimentalPermissionsApi
 @Composable
@@ -23,14 +28,14 @@ fun ScannerScreen(onCodeScanned: (String) -> Unit) {
     val cameraPermissionState = rememberPermissionState(android.Manifest.permission.CAMERA)
 
     val message = if (cameraPermissionState.status.isGranted) {
-        "Scan your friend's QR code to add them to your participant list"
+        stringResource(Res.string.scanner_hint_scan)
     } else if (cameraPermissionState.status.shouldShowRationale) {
-        "Camera Permission permanently denied"
+        stringResource(Res.string.scanner_denied)
     } else {
         SideEffect {
             cameraPermissionState.run { launchPermissionRequest() }
         }
-        "No Camera Permission"
+        stringResource(Res.string.scanner_permission_request)
     }
 
     Box(

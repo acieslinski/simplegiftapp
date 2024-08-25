@@ -10,6 +10,7 @@ import koinAndroid
 import koinCore
 import org.gradle.api.Project
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import test
 import uiAndroid
@@ -90,13 +91,12 @@ internal fun Project.configureKotlinMultiplatformUi(
 private fun Project.configureKotlinMultiplatformCore(
     extension: KotlinMultiplatformExtension
 ) = extension.apply {
-    targetHierarchy.default()
+    applyDefaultHierarchyTemplate()
 
     androidTarget {
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = "1.8"
-            }
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_11)
         }
     }
 

@@ -1,5 +1,7 @@
 plugins {
     id("gift-android-app")
+    alias(libs.plugins.jetbrainsCompose)
+    alias(libs.plugins.compose.compiler)
 }
 
 dependencies {

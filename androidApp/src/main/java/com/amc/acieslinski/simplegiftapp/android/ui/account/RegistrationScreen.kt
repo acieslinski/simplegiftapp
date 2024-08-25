@@ -26,6 +26,11 @@ import com.amc.acieslinski.simplegiftapp.account.presentation.RegistrationViewMo
 import com.amc.acieslinski.simplegiftapp.account.presentation.model.RegistrationState
 import com.amc.acieslinski.simplegiftapp.android.ui.MyApplicationTheme
 import com.amc.acieslinski.simplegiftapp.android.ui.account.mapper.RegistrationDialogStateMapper
+import com.amc.acieslinski.simplegiftapp.resources.Res
+import com.amc.acieslinski.simplegiftapp.resources.account_name
+import com.amc.acieslinski.simplegiftapp.resources.account_register
+import com.amc.acieslinski.simplegiftapp.resources.account_surname
+import org.jetbrains.compose.resources.stringResource
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -74,7 +79,7 @@ private fun ContentView(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Column() {
-            Text(text = "Name", style = MaterialTheme.typography.labelMedium)
+            Text(text = stringResource(Res.string.account_name), style = MaterialTheme.typography.labelMedium)
             Spacer(modifier = Modifier.height(16.dp))
             TextField(
                 value = name,
@@ -84,7 +89,7 @@ private fun ContentView(
         }
 
         Column() {
-            Text(text = "Surname", style = MaterialTheme.typography.labelMedium)
+            Text(text = stringResource(Res.string.account_surname), style = MaterialTheme.typography.labelMedium)
             Spacer(modifier = Modifier.height(16.dp))
             TextField(
                 value = surname,
@@ -109,7 +114,7 @@ private fun ContentView(
                 modifier = Modifier.align(Alignment.Center),
                 enabled = !state.isLoading
             ) {
-                Text("Register")
+                Text(stringResource(Res.string.account_register))
             }
         }
     }
