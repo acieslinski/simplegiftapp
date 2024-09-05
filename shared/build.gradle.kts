@@ -20,6 +20,7 @@ kotlin {
             export(projects.account)
             export(projects.account.ui)
             export(projects.drawing)
+            export(projects.drawing.ui)
         }
     }
 

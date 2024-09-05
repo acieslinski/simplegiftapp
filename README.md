@@ -53,6 +53,15 @@ The project requires certain secrets for build purposes. These secrets can be em
 
 Ensure that the required secrets are provided or placeholder values are set in the relevant files.
 
+### Fakes Configuration
+
+You can run the app with fakes without the dependency to the external services. In this case see the Configuration class.
+
+- **Available fakes**:
+  - `AccountLocalFakeService`
+  - `AccountRemoteFakeService`
+  - `UserFakeRepositoryImpl`
+
 ### iOS Build Configuration
 
 - Verify that the correct Java version is used in the Build phase (Run script) for the iOS build.

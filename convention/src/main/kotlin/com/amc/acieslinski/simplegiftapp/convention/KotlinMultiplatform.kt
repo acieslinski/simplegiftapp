@@ -39,16 +39,20 @@ internal fun Project.configureKotlinMultiplatformModule(
 
     sourceSets.apply {
         sourceSets.apply {
-            getByName("commonMain") { dependencies {
-                baseMain()
-                koinCore()
-                if (project.name != "configuration") {
-                    implementation(project(":core:configuration"))
+            getByName("commonMain") {
+                dependencies {
+                    baseMain()
+                    koinCore()
+                    if (project.name != "configuration") {
+                        implementation(project(":core:configuration"))
+                    }
                 }
-            } }
-            getByName("androidMain") { dependencies {
-                koinAndroid()
-            } }
+            }
+            getByName("androidMain") {
+                dependencies {
+                    koinAndroid()
+                }
+            }
             getByName("iosMain") { dependencies { } }
             getByName("commonTest") { dependencies { } }
         }
@@ -107,6 +111,6 @@ private fun Project.configureKotlinMultiplatformCore(
 
 fun KotlinMultiplatformExtension.iosTargets() = listOf(
 //        iosX64(),
-//        iosArm64(),
+    iosArm64(),
     iosSimulatorArm64()
 )
