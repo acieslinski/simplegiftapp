@@ -17,9 +17,9 @@ class RegistrationViewModel(
     private val _registrationState = MutableStateFlow(RegistrationState())
     val registrationState: StateFlow<RegistrationState> = _registrationState
 
-    private val _registrationDialogStateState = MutableStateFlow<RegistrationDialogState>(
+    private val _registrationDialogState = MutableStateFlow<RegistrationDialogState>(
         RegistrationDialogState.Hidden)
-    val registrationDialogState: StateFlow<RegistrationDialogState> = _registrationDialogStateState
+    val registrationDialogState: StateFlow<RegistrationDialogState> = _registrationDialogState
 
     fun onRegisterAction(name: String, surname: String) {
         if (!_registrationState.value.isLoading) {
@@ -28,11 +28,11 @@ class RegistrationViewModel(
                 .onEach { registerAccountResult ->
                     if (registerAccountResult.isSuccessful) {
                         _registrationState.update { it.registered() }
-                        _registrationDialogStateState.emit(RegistrationDialogState.Confirmation)
+                        _registrationDialogState.emit(RegistrationDialogState.Confirmation)
                     } else {
                         with(RegistrationError.Unknown) {
                             _registrationState.update { it.error(this) }
-                            _registrationDialogStateState.emit(RegistrationDialogState.Error(this))
+                            _registrationDialogState.emit(RegistrationDialogState.Error(this))
                         }
                     }
                 }
@@ -41,6 +41,7 @@ class RegistrationViewModel(
     }
 
     fun onNotificationAckAction() {
-        _registrationDialogStateState.update { RegistrationDialogState.Hidden }
+        _registrationDialogState.update { RegistrationDialogState.Hidden }
+        _registrationState.update { it.done() }
     }
 }

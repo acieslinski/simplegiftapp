@@ -20,6 +20,7 @@ fun AppNavHost(
     var scannerCallback: ((String) -> Unit)? = null
     fun onCodeScanned(code: String) {
         scannerCallback?.invoke(code)
+        scannerCallback = null
         navController.navigateUp()
     }
 
@@ -29,7 +30,9 @@ fun AppNavHost(
         modifier = modifier,
     ) {
         composable(Screens.REGISTRATION.route) {
-            RegistrationScreen()
+            RegistrationScreen {
+                navController.navigate(Screens.DRAWING.route)
+            }
         }
         composable(Screens.QR_SCANNER.route) {
             ScannerScreen(::onCodeScanned)
@@ -41,7 +44,7 @@ fun AppNavHost(
                     navController.navigate(Screens.QR_SCANNER.route)
                 }
             }
-            DrawingScreen(navScanner, getViewModel())
+            DrawingScreen(getViewModel(), navScanner)
         }
     }
 }

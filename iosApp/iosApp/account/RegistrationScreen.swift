@@ -40,6 +40,7 @@ extension RegistrationScreen {
 
 struct RegistrationScreen: View {
     @ObservedObject private(set) var viewModel: RegistrationViewModelWrapper = RegistrationViewModelWrapper()
+    private(set) var onRegistrationDone: () -> Void
     @State private var name: String = ""
     @State private var surname: String = ""
 
@@ -63,6 +64,11 @@ struct RegistrationScreen: View {
                 viewModel.onNotificationAckAction()
             }
         )
+        .onChange(of: viewModel.registrationState.isRegistrationAck) { _, isAck in
+            if isAck {
+                onRegistrationDone()
+            }
+        }
     }
 }
 
@@ -110,6 +116,6 @@ struct LoginForm: View {
     }
 }
 
-#Preview {
-    RegistrationScreen()
-}
+//#Preview {
+//    RegistrationScreen()
+//}

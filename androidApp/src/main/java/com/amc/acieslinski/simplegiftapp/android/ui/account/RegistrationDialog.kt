@@ -19,7 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.amc.acieslinski.simplegiftapp.account.presentation.model.RegistrationDialogState
-import com.amc.acieslinski.simplegiftapp.android.ui.account.mapper.RegistrationDialogStateMapper
+import com.amc.acieslinski.simplegiftapp.android.ui.account.model.RegistrationDialogModelMapper
 import com.amc.acieslinski.simplegiftapp.resources.Res
 import com.amc.acieslinski.simplegiftapp.resources.account_register_confirmation_close
 import org.jetbrains.compose.resources.stringResource
@@ -30,7 +30,7 @@ fun RegistrationDialog(
     onDismiss: () -> Unit,
 ) {
     val uiRegistrationNotification = remember(key1 = registrationNotification) {
-        RegistrationDialogStateMapper.INSTANCE.mapToUi(registrationNotification)
+        RegistrationDialogModelMapper.mapToUiModel(registrationNotification)
     }
 
     if (uiRegistrationNotification != null) {

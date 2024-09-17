@@ -25,7 +25,6 @@ import androidx.compose.ui.unit.dp
 import com.amc.acieslinski.simplegiftapp.account.presentation.RegistrationViewModel
 import com.amc.acieslinski.simplegiftapp.account.presentation.model.RegistrationState
 import com.amc.acieslinski.simplegiftapp.android.ui.MyApplicationTheme
-import com.amc.acieslinski.simplegiftapp.android.ui.account.mapper.RegistrationDialogStateMapper
 import com.amc.acieslinski.simplegiftapp.resources.Res
 import com.amc.acieslinski.simplegiftapp.resources.account_name
 import com.amc.acieslinski.simplegiftapp.resources.account_register
@@ -36,12 +35,16 @@ import org.koin.androidx.compose.getViewModel
 @Composable
 fun RegistrationScreen(
     viewModel: RegistrationViewModel = getViewModel(),
-    notificationMapper: RegistrationDialogStateMapper = RegistrationDialogStateMapper.INSTANCE
+    onRegistrationDone: () -> Unit
 ) {
     val firstInputText = rememberSaveable { mutableStateOf("") }
     val secondInputText = rememberSaveable { mutableStateOf("") }
     val registrationState by viewModel.registrationState.collectAsState() // TODO lifecycle
     val registrationDialogState by viewModel.registrationDialogState.collectAsState()
+
+    if (registrationState.isRegistrationAck) {
+        onRegistrationDone()
+    }
 
     Column {
         ContentView(
@@ -67,7 +70,7 @@ private fun ContentView(
     onNameChanged: (name: String) -> Unit,
     surname: String,
     onSurnameChanged: (surname: String) -> Unit,
-    state: RegistrationState,
+    registrationState: RegistrationState,
     onRegistrationAction: () -> Unit
 ) {
     Column(
@@ -78,7 +81,7 @@ private fun ContentView(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        Column() {
+        Column {
             Text(text = stringResource(Res.string.account_name), style = MaterialTheme.typography.labelMedium)
             Spacer(modifier = Modifier.height(16.dp))
             TextField(
@@ -88,7 +91,7 @@ private fun ContentView(
             )
         }
 
-        Column() {
+        Column {
             Text(text = stringResource(Res.string.account_surname), style = MaterialTheme.typography.labelMedium)
             Spacer(modifier = Modifier.height(16.dp))
             TextField(
@@ -105,14 +108,14 @@ private fun ContentView(
                 .fillMaxWidth()
                 .wrapContentHeight()
         ) {
-            if (state.isLoading) {
+            if (registrationState.isLoading) {
                 CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
             }
 
             Button(
                 onClick = onRegistrationAction,
                 modifier = Modifier.align(Alignment.Center),
-                enabled = !state.isLoading
+                enabled = !registrationState.isLoading
             ) {
                 Text(stringResource(Res.string.account_register))
             }
@@ -124,6 +127,6 @@ private fun ContentView(
 @Composable
 fun RegisterScreenPreview() {
     MyApplicationTheme {
-        RegistrationScreen()
+        RegistrationScreen {}
     }
 }

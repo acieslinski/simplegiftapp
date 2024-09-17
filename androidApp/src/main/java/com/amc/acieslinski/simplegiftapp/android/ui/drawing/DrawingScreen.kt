@@ -32,8 +32,8 @@ import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun DrawingScreen(
+    viewModel: DrawingViewModel = getViewModel(),
     navScanner: ScannerNav,
-    viewModel: DrawingViewModel = getViewModel()
 ) {
     val drawingState by viewModel.drawingUiState.collectAsState() // TODO lifecycle
 
@@ -79,18 +79,23 @@ fun NameItem(name: String) {
 @Composable
 fun DrawingScreenPreview() {
     MyApplicationTheme {
-        DrawingScreen(ScannerNav.DUMB, object : DrawingViewModel() {
-            override val drawingUiState: StateFlow<DrawingUiState> = MutableStateFlow(
-                DrawingUiState(
-                    participants = listOf(ParticipantUiState(
-                        "name", "surname", "id"
-                    ))
+        DrawingScreen(
+            object : DrawingViewModel() {
+                override val drawingUiState: StateFlow<DrawingUiState> = MutableStateFlow(
+                    DrawingUiState(
+                        participants = listOf(
+                            ParticipantUiState(
+                                "name", "surname", "id"
+                            )
+                        )
+                    )
                 )
-            )
 
-            override fun addParticipant(id: String) {
-                error("not supported")
-            }
-        })
+                override fun addParticipant(id: String) {
+                    error("not supported")
+                }
+            },
+            ScannerNav.DUMB
+        )
     }
 }

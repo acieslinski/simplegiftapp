@@ -5,8 +5,9 @@ import shared
 struct ContentView: View {
     
     var body: some View {
-        ScannerScreen()
-        //	RegistrationScreen(viewModel: .init())
+    DrawingScreen(viewModel: .init(), scannerRouter: ScannerNavDumb())
+//        ScannerScreen()
+//        	RegistrationScreen(viewModel: .init())
     }
 }
 

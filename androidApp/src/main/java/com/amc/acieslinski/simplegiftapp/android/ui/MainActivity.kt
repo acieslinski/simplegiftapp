@@ -37,6 +37,6 @@ class MainActivity : ComponentActivity() {
 fun MainActivityPreview() {
     MyApplicationTheme {
         // TODO provide Preview version
-        RegistrationScreen()
+        RegistrationScreen {}
     }
 }

@@ -7,6 +7,8 @@ struct ScannerScreen: View {
     @State private var scannedCode = ""
     @State private var isPermissionGranted = false
 
+    var onScannedCode: (String) -> Void
+
     var body: some View {
         VStack {
             if isPermissionGranted {
@@ -14,7 +16,10 @@ struct ScannerScreen: View {
                     .font(.headline)
                     .padding()
                 
-                CameraView { code in self.scannedCode = code }
+                CameraView { code in
+                    self.scannedCode = code
+                    self.onScannedCode(code)
+                 }
                 .edgesIgnoringSafeArea(.all)
             } else {
                 Text("Please grant camera permission to scan QR codes.")
