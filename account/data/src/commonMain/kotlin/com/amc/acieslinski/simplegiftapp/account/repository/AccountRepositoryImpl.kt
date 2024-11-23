@@ -26,4 +26,6 @@ class AccountRepositoryImpl(
                 Log.e(it) { "registration exception" }
                 emit(RegisterAccountResult.UnknownIssue)
             }
+
+    override suspend fun isRegistered(): Boolean = accountLocalDataSource.getAccount() != null
 }

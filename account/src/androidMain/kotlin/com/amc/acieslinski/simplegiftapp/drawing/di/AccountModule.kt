@@ -5,6 +5,7 @@ import com.amc.acieslinski.simplegiftapp.account.datasource.AccountLocalService
 import com.amc.acieslinski.simplegiftapp.account.datasource.AccountRemoteFakeService
 import com.amc.acieslinski.simplegiftapp.account.datasource.AccountRemoteService
 import com.amc.acieslinski.simplegiftapp.account.datasource.mapper.AccountDataMapper
+import com.amc.acieslinski.simplegiftapp.account.domain.IsUserRegisteredUseCase
 import com.amc.acieslinski.simplegiftapp.account.domain.RegisterUseCase
 import com.amc.acieslinski.simplegiftapp.account.domain.repositories.AccountRepository
 import com.amc.acieslinski.simplegiftapp.account.presentation.RegistrationViewModel
@@ -34,6 +35,7 @@ actual val accountModule = databaseModule + networkModule + module {
         }
     }
     single<RegisterUseCase> { RegisterUseCase(get()) }
+    single<IsUserRegisteredUseCase> { IsUserRegisteredUseCase(get()) }
     single<AccountRepository> { AccountRepositoryImpl(get(), get()) }
-    viewModel { RegistrationViewModel(get()) }
+    viewModel { RegistrationViewModel(get(), get()) }
 }

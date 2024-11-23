@@ -43,9 +43,6 @@ internal fun Project.configureKotlinMultiplatformModule(
                 dependencies {
                     baseMain()
                     koinCore()
-                    if (project.name != "configuration") {
-                        implementation(project(":core:configuration"))
-                    }
                 }
             }
             getByName("androidMain") {

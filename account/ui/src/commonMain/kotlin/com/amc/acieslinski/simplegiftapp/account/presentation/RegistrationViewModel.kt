@@ -1,6 +1,7 @@
 package com.amc.acieslinski.simplegiftapp.account.presentation
 
 import com.amc.acieslinski.simplegiftapp.BaseViewModel
+import com.amc.acieslinski.simplegiftapp.account.domain.IsUserRegisteredUseCase
 import com.amc.acieslinski.simplegiftapp.account.domain.RegisterUseCase
 import com.amc.acieslinski.simplegiftapp.account.presentation.model.RegistrationDialogState
 import com.amc.acieslinski.simplegiftapp.account.presentation.model.RegistrationError
@@ -10,9 +11,11 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 class RegistrationViewModel(
-    private val registerUseCase: RegisterUseCase
+    private val registerUseCase: RegisterUseCase,
+    private val isUserRegisteredUseCase: IsUserRegisteredUseCase,
 ) : BaseViewModel() {
     private val _registrationState = MutableStateFlow(RegistrationState())
     val registrationState: StateFlow<RegistrationState> = _registrationState
@@ -20,6 +23,14 @@ class RegistrationViewModel(
     private val _registrationDialogState = MutableStateFlow<RegistrationDialogState>(
         RegistrationDialogState.Hidden)
     val registrationDialogState: StateFlow<RegistrationDialogState> = _registrationDialogState
+
+    init {
+        scope.launch {
+            if (isUserRegisteredUseCase()) {
+                _registrationState.update { it.done() }
+            }
+        }
+    }
 
     fun onRegisterAction(name: String, surname: String) {
         if (!_registrationState.value.isLoading) {

@@ -27,8 +27,10 @@ class AccountLocalService(
         }
     }
 
-    fun getAccount(): AccountLocal =
-        db.simpleGiftAppDatabaseQueries.selectAccount(::mapSource).executeAsOne()
+    override suspend fun getAccount(): AccountData? =
+        db.simpleGiftAppDatabaseQueries.selectAccount(::mapSource).executeAsOneOrNull()?.let {
+            accountDataMapper.mapToAccount(it)
+        }
 
     fun clearSources() =
         db.simpleGiftAppDatabaseQueries.removeAccount()

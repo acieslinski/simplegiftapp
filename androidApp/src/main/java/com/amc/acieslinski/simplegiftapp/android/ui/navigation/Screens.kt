@@ -4,4 +4,5 @@ enum class Screens(val route: String) {
     REGISTRATION("registration"),
     QR_SCANNER("scanner"),
     DRAWING("drawing"),
+    WELCOME("welcome"),
 }

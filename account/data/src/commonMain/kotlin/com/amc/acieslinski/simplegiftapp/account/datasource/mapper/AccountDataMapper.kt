@@ -18,4 +18,11 @@ class AccountDataMapper {
         accountRemote.public,
         accountRemote.private,
     )
+
+    fun mapToAccount(accountLocal: AccountLocal) = AccountData(
+        accountLocal.name,
+        accountLocal.surname,
+        accountLocal.public,
+        accountLocal.private,
+    )
 }

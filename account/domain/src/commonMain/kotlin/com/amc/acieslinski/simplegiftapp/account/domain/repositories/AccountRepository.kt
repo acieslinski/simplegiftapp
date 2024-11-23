@@ -5,5 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface AccountRepository {
     fun register(name: String, surname: String): Flow<RegisterAccountResult>
+
+    suspend fun isRegistered(): Boolean
 }
 

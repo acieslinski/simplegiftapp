@@ -34,8 +34,11 @@ fun KotlinDependencyHandler.ktorForIosNetworkModule() {
 }
 
 fun KotlinDependencyHandler.baseMain() {
-    if (project.name != "logger") {
+    if (project.name != "logger" && project.name != "configuration") {
         implementation(project(":core:logger"))
+    }
+    if (project.name != "configuration") {
+        implementation(project(":core:configuration"))
     }
     implementation(versionCatalog.findLibrary("kotlinx-datetime").get())
     implementation(versionCatalog.findLibrary("kotlinx-coroutines-core").get())

@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import com.amc.acieslinski.simplegiftapp.android.ui.account.RegistrationScreen
 import com.amc.acieslinski.simplegiftapp.android.ui.drawing.DrawingScreen
 import com.amc.acieslinski.simplegiftapp.android.ui.scanner.ScannerScreen
+import com.amc.acieslinski.simplegiftapp.android.ui.welcome.WelcomeScreen
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import org.koin.androidx.compose.getViewModel
 
@@ -31,7 +32,7 @@ fun AppNavHost(
     ) {
         composable(Screens.REGISTRATION.route) {
             RegistrationScreen {
-                navController.navigate(Screens.DRAWING.route)
+                navController.navigate(Screens.WELCOME.route)
             }
         }
         composable(Screens.QR_SCANNER.route) {
@@ -45,6 +46,9 @@ fun AppNavHost(
                 }
             }
             DrawingScreen(getViewModel(), navScanner)
+        }
+        composable(Screens.WELCOME.route) {
+            WelcomeScreen()
         }
     }
 }
