@@ -12,6 +12,7 @@ struct iOSApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationStack(path: $router.navPath) {
+                // TODO at least one element must be on stack, so empty screen should be created
                 RegistrationScreen(viewModel: .init()) {
                     router.navigate(to: Router.Destination.drawing)
                 }
@@ -24,7 +25,6 @@ struct iOSApp: App {
                         }
                     case .drawing:
                         DrawingScreen(viewModel: .init(), scannerRouter: router)
-                            .navigationBarBackButtonHidden(true)
                     case .scanner:
                         ScannerScreen { code in
                             router.stopScanner(result: code)
@@ -35,10 +35,4 @@ struct iOSApp: App {
             .environmentObject(router)
         }
     }
-//
-//	var body: some Scene {
-//		WindowGroup {
-//			ContentView()
-//		}
-//	}
 }

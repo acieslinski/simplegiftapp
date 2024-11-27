@@ -17,10 +17,10 @@ kotlin {
             export(projects.core.resources)
             export(compose.components.resources)
             export(projects.core.logger)
-            export(projects.account)
-            export(projects.account.ui)
-            export(projects.drawing)
-            export(projects.drawing.ui)
+            export(projects.feature.registration.ui)
+            export(projects.feature.registration)
+            export(projects.feature.drawingmanagement.ui)
+            export(projects.feature.drawingmanagement)
         }
     }
 
@@ -29,8 +29,8 @@ kotlin {
             dependencies {
                 api(projects.core.resources)
                 api(projects.core.logger)
-                api(projects.account)
-                api(projects.drawing)
+                api(projects.feature.registration)
+                api(projects.feature.drawingmanagement)
             }
         }
     }

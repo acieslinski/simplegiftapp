@@ -11,5 +11,8 @@
     <string name="account_register">Register</string>
     <string name="account_register_confirmation_close">Close</string>
     <string name="account_register_success">Congratulations!\nThe account has been created successfully</string>
-    <string name="account_register_failure">We are sorry\nThe account couldn\'t be created this time. Please try again later.</string>
+    <string name="account_register_failure">We are sorry\nThe account couldnt be created this time. Please try again later.</string>
+    <string name="drawing_created_success">Congratulations!\nThe drawing has been created successfully</string>
+    <string name="drawing_created_failure">We are sorry\nThe drawing couldnt be created this time. Please try again later.</string>
+    <string name="drawing_creation_alert_close">Close</string>
 </resources>

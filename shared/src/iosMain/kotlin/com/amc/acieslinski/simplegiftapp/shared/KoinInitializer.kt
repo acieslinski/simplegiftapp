@@ -2,17 +2,17 @@
 
 package com.amc.acieslinski.simplegiftapp.shared
 
-import com.amc.acieslinski.simplegiftapp.account.presentation.RegistrationViewModel
-import com.amc.acieslinski.simplegiftapp.drawing.di.accountModule
-import com.amc.acieslinski.simplegiftapp.drawing.di.drawingModule
-import com.amc.acieslinski.simplegiftapp.drawing.presentation.DrawingViewModel
+import com.amc.acieslinski.simplegiftapp.drawingmanagement.di.drawingManagementModule
+import com.amc.acieslinski.simplegiftapp.registration.di.registrationModule
+import com.amc.acieslinski.simplegiftapp.drawingmanagement.presentation.DrawingViewModel
+import com.amc.acieslinski.simplegiftapp.registration.presentation.RegistrationViewModel
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.context.startKoin
 
 fun initKoin() {
     startKoin {
-        modules(drawingModule + accountModule)
+        modules(registrationModule + drawingManagementModule)
     }
 }
 

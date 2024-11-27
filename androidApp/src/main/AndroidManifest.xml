@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.amc.acieslinski.simplegiftapp.android.ui.MainActivity"
+            android:name="com.amc.acieslinski.simplegiftapp.android.MainActivity"
             android:windowSoftInputMode="adjustResize"
             android:exported="true">
             <intent-filter>
