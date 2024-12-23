@@ -1,5 +1,3 @@
-import SwiftUI
-
 import Foundation
 import SwiftUI
 import shared
@@ -9,7 +7,7 @@ extension DrawingScreen {
     class DrawingViewModelWrapper: ObservableObject {
         let drawingViewModel: DrawingViewModel
 
-        @Published var drawingState: DrawingUiState
+        @Published var drawingState: DrawingUiState_
         @Published var participants: [ParticipantUiState]
 
         init() {
@@ -51,7 +49,6 @@ struct DrawingScreen: View {
             .padding()
         }
         .padding(16)
-        .navigationBarBackButtonHidden(true)
     }
 }
 

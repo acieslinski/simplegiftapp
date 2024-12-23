@@ -14,10 +14,12 @@ struct iOSApp: App {
             NavigationStack(path: $router.navPath) {
                 // TODO at least one element must be on stack, so empty screen should be created
                 RegistrationScreen(viewModel: .init()) {
-                    router.navigate(to: Router.Destination.drawing)
+                    router.navigate(to: Router.Destination.dashboard)
                 }
                 .navigationDestination(for: Router.Destination.self) { destination in
                     switch destination {
+                    case .dashboard:
+                        DashboardScreen(viewModel: .init())
                     case .registration:
                         RegistrationScreen(viewModel: .init()) {
                             router.navigateBack()

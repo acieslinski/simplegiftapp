@@ -8,8 +8,8 @@ kotlin {
 
         val commonMain by getting {
             dependencies {
-//                implementation(projects.registration.data)
-//                implementation(projects.registration.domain)
+                implementation(projects.feature.dashboard.data)
+                implementation(projects.feature.dashboard.domain)
                 api(projects.feature.dashboard.ui)
             }
         }

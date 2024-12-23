@@ -9,7 +9,7 @@ import com.amc.acieslinski.simplegiftapp.android.feature.registration.Registrati
 import com.amc.acieslinski.simplegiftapp.android.feature.drawingmanagement.DrawingScreen
 import com.amc.acieslinski.simplegiftapp.android.feature.drawingmanagement.NewDrawingScreen
 import com.amc.acieslinski.simplegiftapp.android.feature.qrscanner.ScannerScreen
-import com.amc.acieslinski.simplegiftapp.android.feature.dashboard.WelcomeScreen
+import com.amc.acieslinski.simplegiftapp.android.feature.dashboard.DashboardScreen
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import org.koin.androidx.compose.getViewModel
 
@@ -49,9 +49,10 @@ fun AppNavHost(
             DrawingScreen(getViewModel(), navScanner)
         }
         composable(Screens.WELCOME.route) {
-            WelcomeScreen {
-                navController.navigate(Screens.NEW_DRAWING.route)
-            }
+            DashboardScreen(
+                onDrawingAddClick = { navController.navigate(Screens.NEW_DRAWING.route) },
+                onDrawingClick = {navController.navigate(Screens.DRAWING.route)  },
+            )
         }
         composable(Screens.NEW_DRAWING.route) {
             NewDrawingScreen {

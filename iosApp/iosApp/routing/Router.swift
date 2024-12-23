@@ -7,6 +7,7 @@ final class Router: ObservableObject, ScannerRouter, RegistrationRouter {
         case drawing
         case scanner
         case registration
+        case dashboard
     }
 
     @Published var navPath = NavigationPath()

@@ -6,6 +6,6 @@ data class Configuration(
     val useFakeAccountLocalDataSource: Boolean = true,
     val useFakeAccountRemoteDataSource: Boolean = true,
     val useFakeDrawingUserRepository: Boolean = true,
-    val useFakeDrawingRepository: Boolean = false,
+    val useFakeDrawingRepository: Boolean = true,
     val useFakePrivateTokenLocalDataSource: Boolean = true,
 )

@@ -11,10 +11,10 @@ import versionCatalog
 internal fun Project.configureKotlinAndroid(
     extension: LibraryExtension
 ) = extension.apply {
-    namespace = Config.basePackageName
-    compileSdk = Config.androidCompileSdk
+    namespace = BuildConfig.basePackageName
+    compileSdk = BuildConfig.androidCompileSdk
     defaultConfig {
-        minSdk = Config.androidMinSdk
+        minSdk = BuildConfig.androidMinSdk
     }
     packaging {
         resources {
@@ -35,14 +35,14 @@ internal fun Project.configureKotlinAndroid(
 internal fun Project.configureKotlinAndroidApp(
     extension: BaseAppModuleExtension
 ) = extension.apply {
-    namespace = Config.basePackageName + ".android"
-    compileSdk = Config.androidCompileSdk
+    namespace = BuildConfig.basePackageName + ".android"
+    compileSdk = BuildConfig.androidCompileSdk
     defaultConfig {
-        applicationId = Config.basePackageName + ".android"
-        minSdk = Config.androidMinSdk
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        applicationId = BuildConfig.basePackageName + ".android"
+        minSdk = BuildConfig.androidMinSdk
+        targetSdk = BuildConfig.androidCompileSdk
+        versionCode = BuildConfig.androidVersionCode
+        versionName = BuildConfig.androidVersionName
     }
     packaging {
         resources {

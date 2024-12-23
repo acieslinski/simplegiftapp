@@ -21,6 +21,8 @@ kotlin {
             export(projects.feature.registration)
             export(projects.feature.drawingmanagement.ui)
             export(projects.feature.drawingmanagement)
+            export(projects.feature.dashboard.ui)
+            export(projects.feature.dashboard)
         }
     }
 
@@ -31,6 +33,7 @@ kotlin {
                 api(projects.core.logger)
                 api(projects.feature.registration)
                 api(projects.feature.drawingmanagement)
+                api(projects.feature.dashboard)
             }
         }
     }

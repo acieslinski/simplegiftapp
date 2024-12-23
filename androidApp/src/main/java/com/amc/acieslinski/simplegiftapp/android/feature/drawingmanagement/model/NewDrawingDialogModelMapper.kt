@@ -2,6 +2,8 @@ package com.amc.acieslinski.simplegiftapp.android.feature.drawingmanagement.mode
 
 import com.amc.acieslinski.simplegiftapp.drawingmanagement.presentation.model.NewDrawingAlertState
 
+// TODO move the code to the presentation
+
 object NewDrawingDialogModelMapper {
     fun mapToUiModel(dialogState: NewDrawingAlertState): NewDrawingDialogUiModel? {
         return when (dialogState) {

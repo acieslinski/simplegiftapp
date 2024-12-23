@@ -20,10 +20,11 @@ suspend fun HttpResponse.withHandlingUnexpectedResponseStatus(
 }
 
 @Throws(RequestException::class)
-fun HttpResponse.withHandlingUnexpectedResponseStatus() {
+fun HttpResponse.withHandlingUnexpectedResponseStatus(): HttpResponse {
     if (status.value !in 200..299) {
         throw ExceptionMapper.mapStatusCode(status)
     }
+    return this
 }
 
 inline fun <T> Flow<T>.catchRequestException(

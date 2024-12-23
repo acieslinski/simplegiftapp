@@ -1,4 +1,4 @@
-import com.amc.acieslinski.simplegiftapp.convention.Config
+import com.amc.acieslinski.simplegiftapp.convention.BuildConfig
 
 plugins {
     id("gift-module")
@@ -19,6 +19,6 @@ kotlin {
 
 compose.resources {
     publicResClass = true
-    packageOfResClass = "${Config.basePackageName}.resources"
+    packageOfResClass = "${BuildConfig.basePackageName}.resources"
     generateResClass = always
 }

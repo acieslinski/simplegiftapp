@@ -7,7 +7,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-//                implementation(projects.registration.domain)
+                implementation(projects.feature.dashboard.domain)
             }
         }
     }
