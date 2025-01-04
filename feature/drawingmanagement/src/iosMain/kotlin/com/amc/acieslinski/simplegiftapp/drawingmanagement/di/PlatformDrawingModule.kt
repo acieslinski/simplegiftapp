@@ -6,5 +6,5 @@ import org.koin.dsl.module
 
 
 actual val platformDrawingUiModule = module {
-    single<DrawingViewModel> { DrawingViewModelImpl(get()) }
+    single<DrawingViewModel> { DrawingViewModelImpl(get(), get()) }
 }

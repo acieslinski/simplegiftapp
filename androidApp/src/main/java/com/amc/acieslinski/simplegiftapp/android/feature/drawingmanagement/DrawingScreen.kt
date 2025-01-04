@@ -9,6 +9,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -19,14 +21,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.amc.acieslinski.simplegiftapp.android.MyApplicationTheme
 import com.amc.acieslinski.simplegiftapp.android.navigation.ScannerNav
-import com.amc.acieslinski.simplegiftapp.drawingmanagement.presentation.DrawingUiState
 import com.amc.acieslinski.simplegiftapp.drawingmanagement.presentation.DrawingViewModel
+import com.amc.acieslinski.simplegiftapp.drawingmanagement.presentation.FakeDrawingViewModel
 import com.amc.acieslinski.simplegiftapp.drawingmanagement.presentation.ParticipantUiState
 import com.amc.acieslinski.simplegiftapp.resources.Res
+import com.amc.acieslinski.simplegiftapp.resources.drawing_management_close
+import com.amc.acieslinski.simplegiftapp.resources.drawing_management_draw
 import com.amc.acieslinski.simplegiftapp.resources.drawing_participants_add
 import com.amc.acieslinski.simplegiftapp.resources.drawing_participants_title
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import org.jetbrains.compose.resources.stringResource
 import org.koin.androidx.compose.getViewModel
 
@@ -45,6 +47,22 @@ fun DrawingScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
+        Text(
+            text = drawingState.getFormattedDate(),
+            style = MaterialTheme.typography.bodySmall,
+            modifier = Modifier.padding(bottom = 8.dp)
+        )
+        Text(
+            text = drawingState.title,
+            style = MaterialTheme.typography.titleMedium,
+            modifier = Modifier.padding(bottom = 8.dp)
+        )
+        Text(
+            text = drawingState.details,
+            style = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier.padding(bottom = 16.dp)
+        )
+
         ParticipantsList(participants = drawingState.participants)
 
         Button(
@@ -53,8 +71,32 @@ fun DrawingScreen(
                     viewModel.addParticipant(it)
                 }
             },
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.secondary,
+                contentColor = MaterialTheme.colorScheme.onSecondary
+            )
         ) {
             Text(stringResource(Res.string.drawing_participants_add))
+        }
+
+        Button(
+            onClick = {
+                // TODO
+            },
+        ) {
+            Text(stringResource(Res.string.drawing_management_draw))
+        }
+
+        Button(
+            onClick = {
+                // TODO
+            },
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.error,
+                contentColor = MaterialTheme.colorScheme.onError
+            )
+        ) {
+            Text(stringResource(Res.string.drawing_management_close))
         }
     }
 }
@@ -80,21 +122,7 @@ fun NameItem(name: String) {
 fun DrawingScreenPreview() {
     MyApplicationTheme {
         DrawingScreen(
-            object : DrawingViewModel() {
-                override val drawingUiState: StateFlow<DrawingUiState> = MutableStateFlow(
-                    DrawingUiState(
-                        participants = listOf(
-                            ParticipantUiState(
-                                "name", "surname", "id"
-                            )
-                        )
-                    )
-                )
-
-                override fun addParticipant(id: String) {
-                    error("not supported")
-                }
-            },
+            FakeDrawingViewModel(),
             ScannerNav.DUMB
         )
     }

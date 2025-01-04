@@ -1,6 +1,6 @@
 package com.amc.acieslinski.simplegiftapp.drawingmanagement.presentation.model
 
-import com.amc.acieslinski.simplegiftapp.drawingmanagement.domain.model.Drawing
+import com.amc.acieslinski.simplegiftapp.drawingmanagement.domain.model.NewDrawing
 
 data class NewDrawingUiState (
     val title: String = "",
@@ -10,11 +10,8 @@ data class NewDrawingUiState (
     val isSaveAck: Boolean = false,
     val isCancelled: Boolean = false,
 ) {
-    fun toDomain() = Drawing(
+    fun toDomain() = NewDrawing(
         title = title,
         description = description,
-        participants = emptyList(),
-        drawnParticipant = null,
-        isDrawingClosed = false
     )
 }

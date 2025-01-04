@@ -15,4 +15,6 @@
     <string name="drawing_created_success">Congratulations!\nThe drawing has been created successfully</string>
     <string name="drawing_created_failure">We are sorry\nThe drawing couldnt be created this time. Please try again later.</string>
     <string name="drawing_creation_alert_close">Close</string>
+    <string name="drawing_management_draw">Pick a friend to give a gift!</string>
+    <string name="drawing_management_close">Close the drawing</string>
 </resources>

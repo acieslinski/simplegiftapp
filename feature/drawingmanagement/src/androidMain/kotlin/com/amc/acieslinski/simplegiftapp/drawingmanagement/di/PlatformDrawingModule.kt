@@ -10,6 +10,6 @@ import org.koin.dsl.module
 @Suppress("USELESS_CAST")
 actual val platformDrawingUiModule = module {
     // ui
-    viewModel { DrawingViewModelImpl(get()) as DrawingViewModel }
+    viewModel { DrawingViewModelImpl(get(), get()) as DrawingViewModel }
     viewModel { NewDrawingViewModelImpl(get()) as NewDrawingViewModel }
 }

@@ -1,6 +1,6 @@
 package com.amc.acieslinski.simplegiftapp.dashboard.data.repository.drawing
 
-import com.amc.acieslinski.simplegiftapp.dashboard.data.datasource.drawing.DrawingRemoteDataSource
+import com.amc.acieslinski.simplegiftapp.data.datasource.drawing.DrawingRemoteDataSource
 import com.amc.acieslinski.simplegiftapp.data.datasource.token.PrivateTokenDataSource
 import com.amc.acieslinski.simplegiftapp.dashboard.domain.model.Drawing
 import com.amc.acieslinski.simplegiftapp.dashboard.domain.repositories.DrawingRepository

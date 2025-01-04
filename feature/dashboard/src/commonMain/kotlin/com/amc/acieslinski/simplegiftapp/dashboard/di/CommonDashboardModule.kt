@@ -1,7 +1,7 @@
 package com.amc.acieslinski.simplegiftapp.dashboard.di
 import com.amc.acieslinski.simplegiftapp.configuration
-import com.amc.acieslinski.simplegiftapp.dashboard.data.datasource.drawing.DrawingRemoteDataSource
-import com.amc.acieslinski.simplegiftapp.dashboard.data.datasource.drawing.DrawingRemoteDataSourceImpl
+import com.amc.acieslinski.simplegiftapp.data.datasource.drawing.DrawingRemoteDataSource
+import com.amc.acieslinski.simplegiftapp.data.datasource.drawing.DrawingRemoteDataSourceImpl
 import com.amc.acieslinski.simplegiftapp.dashboard.data.repository.drawing.DrawingRepositoryImpl
 import com.amc.acieslinski.simplegiftapp.dashboard.data.repository.drawing.FakeDrawingRepositoryImpl
 import com.amc.acieslinski.simplegiftapp.dashboard.data.repository.drawing.mapper.DrawingDataMapper

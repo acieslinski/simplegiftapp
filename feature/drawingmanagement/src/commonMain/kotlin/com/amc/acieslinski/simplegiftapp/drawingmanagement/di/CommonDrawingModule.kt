@@ -18,6 +18,7 @@ import com.amc.acieslinski.simplegiftapp.drawingmanagement.data.repository.user.
 import com.amc.acieslinski.simplegiftapp.db.databaseModule
 import com.amc.acieslinski.simplegiftapp.di.networkModule
 import com.amc.acieslinski.simplegiftapp.drawingmanagement.domain.CreateDrawingUseCase
+import com.amc.acieslinski.simplegiftapp.drawingmanagement.domain.GetSelectedDrawingUseCase
 import com.amc.acieslinski.simplegiftapp.drawingmanagement.domain.GetUserUseCase
 import com.amc.acieslinski.simplegiftapp.drawingmanagement.domain.repositories.DrawingRepository
 import com.amc.acieslinski.simplegiftapp.drawingmanagement.domain.repositories.UserRepository
@@ -50,12 +51,13 @@ val commonDrawingDataModule = databaseModule + networkModule + module {
         if (configuration.useFakeDrawingRepository) {
             FakeDrawingRepositoryImpl()
         } else {
-            DrawingRepositoryImpl(get(), get(), get())
+            DrawingRepositoryImpl(get(), get(), get(), get())
         }
     }
 }
 val commonDrawingDomainModule = module {
     single<GetUserUseCase> { GetUserUseCase(get()) }
+    single<GetSelectedDrawingUseCase> { GetSelectedDrawingUseCase(get()) }
     single<CreateDrawingUseCase> { CreateDrawingUseCase(get()) }
 }
 val drawingManagementModule = commonDrawingDataModule + commonDrawingDomainModule + platformDrawingUiModule

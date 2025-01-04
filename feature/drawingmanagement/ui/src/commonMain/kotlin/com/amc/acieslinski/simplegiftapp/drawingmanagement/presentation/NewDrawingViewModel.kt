@@ -1,6 +1,6 @@
 package com.amc.acieslinski.simplegiftapp.drawingmanagement.presentation
 
-import com.amc.acieslinski.simplegiftapp.BaseViewModel
+import com.amc.acieslinski.simplegiftapp.presentation.BaseViewModel
 import com.amc.acieslinski.simplegiftapp.drawingmanagement.domain.CreateDrawingUseCase
 import com.amc.acieslinski.simplegiftapp.drawingmanagement.presentation.model.NewDrawingAlertState
 import com.amc.acieslinski.simplegiftapp.drawingmanagement.presentation.model.NewDrawingUiState

@@ -1,6 +1,6 @@
 package com.amc.acieslinski.simplegiftapp.registration.presentation
 
-import com.amc.acieslinski.simplegiftapp.BaseViewModel
+import com.amc.acieslinski.simplegiftapp.presentation.BaseViewModel
 import com.amc.acieslinski.simplegiftapp.registration.domain.IsUserRegisteredUseCase
 import com.amc.acieslinski.simplegiftapp.registration.domain.RegisterUseCase
 import com.amc.acieslinski.simplegiftapp.registration.presentation.model.RegistrationDialogState

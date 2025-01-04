@@ -1,6 +1,6 @@
 package com.amc.acieslinski.simplegiftapp.dashboard.presentation
 
-import com.amc.acieslinski.simplegiftapp.BaseViewModel
+import com.amc.acieslinski.simplegiftapp.presentation.BaseViewModel
 import com.amc.acieslinski.simplegiftapp.dashboard.domain.GetDrawingsUseCase
 import com.amc.acieslinski.simplegiftapp.dashboard.domain.SelectDrawingUseCase
 import com.amc.acieslinski.simplegiftapp.dashboard.presentation.mapper.DrawingMapper

@@ -19,11 +19,14 @@ struct iOSApp: App {
                 .navigationDestination(for: Router.Destination.self) { destination in
                     switch destination {
                     case .dashboard:
-                        DashboardScreen(viewModel: .init())
+                        DashboardScreen(
+                            viewModel: .init(),
+                            onDrawingClick: { _ in router.navigate(to: Router.Destination.drawing) }
+                        )
                     case .registration:
                         RegistrationScreen(viewModel: .init()) {
                             router.navigateBack()
-                            router.navigate(to: Router.Destination.drawing)
+                            router.navigate(to: Router.Destination.dashboard)
                         }
                     case .drawing:
                         DrawingScreen(viewModel: .init(), scannerRouter: router)

@@ -1,5 +1,6 @@
 package com.amc.acieslinski.simplegiftapp.dashboard.presentation.model
 
+import com.amc.acieslinski.simplegiftapp.presentation.getShortFormattedDate
 import kotlinx.datetime.Instant
 
 data class DrawingUiState(
@@ -9,4 +10,4 @@ data class DrawingUiState(
     val date: Instant,
 )
 
-expect fun DrawingUiState.getFormattedDate(): String
+fun DrawingUiState.getFormattedDate(): String = date.getShortFormattedDate()

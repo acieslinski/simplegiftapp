@@ -1,7 +1,7 @@
 package com.amc.acieslinski.simplegiftapp.dashboard.data.repository.drawing.mapper
 
-import com.amc.acieslinski.simplegiftapp.dashboard.data.datasource.drawing.model.DrawingRemoteModel
-import com.amc.acieslinski.simplegiftapp.dashboard.data.datasource.drawing.model.GetDrawingsRequestModel
+import com.amc.acieslinski.simplegiftapp.data.datasource.drawing.model.DrawingRemoteModel
+import com.amc.acieslinski.simplegiftapp.data.datasource.drawing.model.GetDrawingsRequestModel
 import com.amc.acieslinski.simplegiftapp.dashboard.domain.model.Drawing
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant

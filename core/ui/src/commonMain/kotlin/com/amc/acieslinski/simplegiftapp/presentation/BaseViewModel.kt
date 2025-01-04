@@ -1,4 +1,4 @@
-package com.amc.acieslinski.simplegiftapp
+package com.amc.acieslinski.simplegiftapp.presentation
 
 import kotlinx.coroutines.CoroutineScope
 

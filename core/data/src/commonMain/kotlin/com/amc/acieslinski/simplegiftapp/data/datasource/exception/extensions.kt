@@ -38,6 +38,7 @@ inline fun <T> Flow<T>.catchRequestException(
         }
     }
 
+@Deprecated("use sealed classes as results")
 inline fun <T, R> T.withHandlingRepositoryExceptions(block: T.() -> R): Result<R> {
     return try {
         Result.success(block())
