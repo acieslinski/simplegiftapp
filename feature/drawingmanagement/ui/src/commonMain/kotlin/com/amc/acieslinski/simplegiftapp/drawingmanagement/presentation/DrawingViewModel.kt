@@ -1,5 +1,6 @@
 package com.amc.acieslinski.simplegiftapp.drawingmanagement.presentation
 
+import com.amc.acieslinski.simplegiftapp.drawingmanagement.domain.AddParticipantToSelectedDrawingUseCase
 import com.amc.acieslinski.simplegiftapp.presentation.BaseViewModel
 import com.amc.acieslinski.simplegiftapp.drawingmanagement.domain.GetSelectedDrawingUseCase
 import com.amc.acieslinski.simplegiftapp.drawingmanagement.domain.GetUserUseCase
@@ -25,6 +26,7 @@ abstract class DrawingViewModel(
 class DrawingViewModelImpl(
     private val getUserUseCase: GetUserUseCase,
     private val getSelectedDrawingUseCase: GetSelectedDrawingUseCase,
+    private val addParticipantToSelectedDrawingUseCase: AddParticipantToSelectedDrawingUseCase,
 ) : DrawingViewModel() {
     private val _drawingUiState = MutableStateFlow(DrawingUiState())
     override val drawingUiState: StateFlow<DrawingUiState> = _drawingUiState
@@ -52,10 +54,12 @@ class DrawingViewModelImpl(
     }
 
     override fun addParticipant(id: String) {
+        // TODO ParticipantsUiState with adding state
         getUserUseCase(id)
             .onEach {
                 with(_drawingUiState.value) {
                     if (it is UserResult.Success) {
+                        addParticipantToSelectedDrawingUseCase(it.user)
                         _drawingUiState.value =
                             copy(participants = participants + it.user.toUiState())
                     } else {

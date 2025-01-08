@@ -48,3 +48,14 @@ inline fun <T, R> T.withHandlingRepositoryExceptions(block: T.() -> R): Result<R
         Result.failure(e)
     }
 }
+
+@Deprecated("use sealed classes as results")
+inline fun <T> T.withHandlingRepositoryExceptions(block: T.() -> Unit): Result<Unit> {
+    return try {
+        Result.success(block())
+    } catch (e: CancellationException) {
+        throw e
+    } catch (e: Throwable) {
+        Result.failure(e)
+    }
+}

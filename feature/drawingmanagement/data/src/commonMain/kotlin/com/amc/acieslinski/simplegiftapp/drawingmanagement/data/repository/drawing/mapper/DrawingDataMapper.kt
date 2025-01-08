@@ -3,34 +3,47 @@ package com.amc.acieslinski.simplegiftapp.drawingmanagement.data.repository.draw
 import com.amc.acieslinski.simplegiftapp.data.datasource.drawing.model.DrawingRemoteModel
 import com.amc.acieslinski.simplegiftapp.data.datasource.drawing.model.GetDrawingsRequestModel
 import com.amc.acieslinski.simplegiftapp.drawingmanagement.domain.model.NewDrawing
-import com.amc.acieslinski.simplegiftapp.drawingmanagement.data.datasource.drawing.model.CreateDrawingRequestModel
+import com.amc.acieslinski.simplegiftapp.data.datasource.drawing.model.SaveDrawingRequestModel
 import com.amc.acieslinski.simplegiftapp.drawingmanagement.domain.model.Drawing
-import com.amc.acieslinski.simplegiftapp.drawingmanagement.domain.model.SelectedDrawingResult
 import kotlinx.datetime.Clock
 
 class DrawingDataMapper {
-    fun resolveData(newDrawing: NewDrawing, privateToken: String) = with(newDrawing) {
-        CreateDrawingRequestModel(
-            title = title,
-            description = description,
+    fun resolve(newDrawing: NewDrawing, privateToken: String) = with(newDrawing) {
+        SaveDrawingRequestModel(
+            drawing = DrawingRemoteModel(
+                title = title,
+                description = description,
+                createdDate = Clock.System.now(),
+                participantsPublicToken = emptyList(),
+            ),
             privateToken = privateToken,
         )
     }
 
-    fun map(privateToken: String) = GetDrawingsRequestModel(
-        privateToken = privateToken
+    fun resolve(drawing: Drawing, privateToken: String) = SaveDrawingRequestModel(
+        drawing = map(drawing),
+        privateToken = privateToken,
     )
 
-    fun mapToResult(drawing: DrawingRemoteModel?): SelectedDrawingResult = drawing?.let {
-        SelectedDrawingResult.Success(drawing = map(it))
-    } ?: SelectedDrawingResult.Empty
+    fun map(privateToken: String) = GetDrawingsRequestModel(privateToken = privateToken)
 
-    private fun map(drawing: DrawingRemoteModel): Drawing = with(drawing) {
+    fun resolve(drawingId: String, drawing: DrawingRemoteModel): Drawing = with(drawing) {
         Drawing(
+            id = drawingId,
+            title = title,
+            description = description,
+            createdDate = createdDate,
+            participants = emptyList(),
+        )
+    }
+
+    private fun map(drawing: Drawing): DrawingRemoteModel = with(drawing) {
+        DrawingRemoteModel(
             id = id,
             title = title,
             description = description,
-            createdDate = createdDate ?: Clock.System.now(),
+            createdDate = createdDate,
+            participantsPublicToken = drawing.participants.map { it.idToken },
         )
     }
 }
