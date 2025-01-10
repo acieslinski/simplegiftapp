@@ -1,5 +1,6 @@
 package com.amc.acieslinski.simplegiftapp.android.feature.drawingmanagement
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -13,16 +14,10 @@ import org.koin.androidx.compose.getViewModel
 @Composable
 fun NewDrawingScreen(
     viewModel: NewDrawingViewModel = getViewModel(),
-    onNewDrawingDone: () -> Unit = {}
+    onNewDrawingDismissed: () -> Unit = {}
 ) {
-    val newDrawingState by viewModel.newDrawingUiState.collectAsState() // TODO lifecycle
-    val newDrawingAlertState by viewModel.newDrawingAlertState.collectAsState()
-
-    if (newDrawingState.isSaveAck || newDrawingState.isCancelled) {
-        onNewDrawingDone()
-    }
-
-    // TODO loader on saving the new drawing
+    val state by viewModel.newDrawingUiState.collectAsState() // TODO lifecycle
+    val alertState by viewModel.newDrawingAlertState.collectAsState()
 
     Column(
         modifier = Modifier
@@ -32,14 +27,14 @@ fun NewDrawingScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         OutlinedTextField(
-            value = newDrawingState.title,
+            value = state.title,
             onValueChange = { viewModel.onTitleChanged(it) },
             label = { Text(text = "Title") },
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(16.dp))
         OutlinedTextField(
-            value = newDrawingState.description,
+            value = state.description,
             onValueChange = { viewModel.onDescriptionChanged(it) },
             label = { Text(text = "Description") },
             modifier = Modifier.fillMaxWidth()
@@ -52,15 +47,27 @@ fun NewDrawingScreen(
             Text(text = "Create")
         }
         Button(
-            onClick = { viewModel.onCancelAction() },
+            onClick = onNewDrawingDismissed,
             modifier = Modifier.align(Alignment.End)
         ) {
             Text(text = "Cancel")
         }
     }
 
-    NewDrawingDialog(newDrawingAlertState) {
-        viewModel.onAlertAck()
+    if (state.isSaving) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background.copy(alpha = 0.7f)),
+            contentAlignment = Alignment.Center
+        ) {
+            CircularProgressIndicator()
+        }
+    }
+
+    NewDrawingDialog(alertState) {
+        viewModel.onAlertAckAction()
+        onNewDrawingDismissed()
     }
 }
 

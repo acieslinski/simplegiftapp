@@ -23,8 +23,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.amc.acieslinski.simplegiftapp.registration.presentation.RegistrationViewModel
-import com.amc.acieslinski.simplegiftapp.registration.presentation.model.RegistrationState
 import com.amc.acieslinski.simplegiftapp.android.MyApplicationTheme
+import com.amc.acieslinski.simplegiftapp.registration.presentation.RegistrationUiState
 import com.amc.acieslinski.simplegiftapp.resources.Res
 import com.amc.acieslinski.simplegiftapp.resources.account_name
 import com.amc.acieslinski.simplegiftapp.resources.account_register
@@ -39,7 +39,7 @@ fun RegistrationScreen(
 ) {
     val firstInputText = rememberSaveable { mutableStateOf("") }
     val secondInputText = rememberSaveable { mutableStateOf("") }
-    val registrationState by viewModel.registrationState.collectAsState() // TODO lifecycle
+    val registrationState by viewModel.registrationUiState.collectAsState() // TODO lifecycle
     val registrationDialogState by viewModel.registrationDialogState.collectAsState()
 
     if (registrationState.isRegistrationAck) {
@@ -70,7 +70,7 @@ private fun ContentView(
     onNameChanged: (name: String) -> Unit,
     surname: String,
     onSurnameChanged: (surname: String) -> Unit,
-    registrationState: RegistrationState,
+    registrationUiState: RegistrationUiState,
     onRegistrationAction: () -> Unit
 ) {
     Column(
@@ -108,14 +108,14 @@ private fun ContentView(
                 .fillMaxWidth()
                 .wrapContentHeight()
         ) {
-            if (registrationState.isLoading) {
+            if (registrationUiState.isLoading) {
                 CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
             }
 
             Button(
                 onClick = onRegistrationAction,
                 modifier = Modifier.align(Alignment.Center),
-                enabled = !registrationState.isLoading
+                enabled = !registrationUiState.isLoading
             ) {
                 Text(stringResource(Res.string.account_register))
             }

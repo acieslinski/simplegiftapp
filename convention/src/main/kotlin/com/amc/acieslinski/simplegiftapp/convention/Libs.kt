@@ -74,16 +74,19 @@ fun KotlinDependencyHandler.dataIos() {
 fun KotlinDependencyHandler.uiMain() {
     baseMain()
     api(project(":core:ui"))
+    api(project(":core:resources"))
 }
 
 fun KotlinDependencyHandler.uiAndroid() {
     baseAndroid()
     api(project(":core:ui"))
+    api(project(":core:resources"))
 }
 
 fun KotlinDependencyHandler.uiIos() {
     baseIos()
     api(project(":core:ui"))
+    api(project(":core:resources"))
 }
 
 fun KotlinDependencyHandler.test() {

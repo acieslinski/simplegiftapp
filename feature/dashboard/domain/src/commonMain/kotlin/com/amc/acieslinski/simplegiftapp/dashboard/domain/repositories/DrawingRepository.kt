@@ -1,10 +1,9 @@
 package com.amc.acieslinski.simplegiftapp.dashboard.domain.repositories
 
-import com.amc.acieslinski.simplegiftapp.dashboard.domain.model.Drawing
-import kotlinx.coroutines.flow.Flow
+import com.amc.acieslinski.simplegiftapp.dashboard.domain.model.DrawingsResult
 
 interface DrawingRepository {
-    fun getDrawings(): Flow<List<Drawing>>
+    suspend fun getDrawings(): DrawingsResult
 
-    fun selectDrawing(drawingId: String)
+    suspend fun selectDrawingId(drawingId: String)
 }

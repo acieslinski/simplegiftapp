@@ -1,28 +1,23 @@
 package com.amc.acieslinski.simplegiftapp.registration.data.datasource.account
 
-import com.amc.acieslinski.simplegiftapp.registration.data.repository.account.AccountData
-import com.amc.acieslinski.simplegiftapp.registration.data.repository.account.AccountRemoteDataSource
+import com.amc.acieslinski.simplegiftapp.registration.data.datasource.account.model.AccountResponseModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.withContext
 
 class AccountRemoteFakeDataSource(
 ) : AccountRemoteDataSource {
 
-    override fun register(name: String, surname: String): Flow<AccountData> {
-        return flow {
+    override suspend fun register(name: String, surname: String): AccountResponseModel {
+        return withContext(Dispatchers.IO) {
             delay(3000)
-            emit(
-                AccountData(
-                name,
-                surname,
-                "public",
-                "private"
+            AccountResponseModel(
+                name = name,
+                surname = surname,
+                public = "public",
+                private = "private"
             )
-            )
-        }.flowOn(Dispatchers.IO)
+        }
     }
 }

@@ -6,5 +6,5 @@ data class Drawing(
     val id: String,
     val orderNumber: Int,
     val title: String,
-    val date: Instant,
+    val createdDate: Instant,
 )

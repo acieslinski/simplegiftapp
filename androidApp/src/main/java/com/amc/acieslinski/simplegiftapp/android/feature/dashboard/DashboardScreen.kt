@@ -25,13 +25,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.amc.acieslinski.simplegiftapp.dashboard.presentation.DashboardViewModel
-import com.amc.acieslinski.simplegiftapp.dashboard.presentation.model.DashboardUiState
-import com.amc.acieslinski.simplegiftapp.dashboard.presentation.model.DrawingUiState
 import org.koin.androidx.compose.getViewModel
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
+import com.amc.acieslinski.simplegiftapp.dashboard.presentation.DashboardUiState
+import com.amc.acieslinski.simplegiftapp.dashboard.presentation.DrawingUiState
 import com.amc.acieslinski.simplegiftapp.dashboard.presentation.FakeDashboardViewModel
-import com.amc.acieslinski.simplegiftapp.dashboard.presentation.model.getFormattedDate
+import com.amc.acieslinski.simplegiftapp.dashboard.presentation.getFormattedDate
 
 @Composable
 fun DashboardScreen(

@@ -1,15 +1,17 @@
 package com.amc.acieslinski.simplegiftapp.drawingmanagement.domain.repositories
 
-import com.amc.acieslinski.simplegiftapp.drawingmanagement.domain.model.Drawing
+import com.amc.acieslinski.simplegiftapp.drawingmanagement.domain.model.AddParticipantResult
+import com.amc.acieslinski.simplegiftapp.drawingmanagement.domain.model.CreateDrawingResult
 import com.amc.acieslinski.simplegiftapp.drawingmanagement.domain.model.NewDrawing
-import com.amc.acieslinski.simplegiftapp.drawingmanagement.domain.model.SaveDrawingResult
-import com.amc.acieslinski.simplegiftapp.drawingmanagement.domain.model.SelectedDrawingResult
+import com.amc.acieslinski.simplegiftapp.drawingmanagement.domain.model.SelectedDrawingIdResult
+import com.amc.acieslinski.simplegiftapp.drawingmanagement.domain.model.SelectedDrawingUpdate
+import kotlinx.coroutines.flow.Flow
 
 interface DrawingRepository {
-    // TODO use result sealed class, make it free of exceptions
-    suspend fun createDrawing(newDrawing: NewDrawing): Result<Unit>
+    suspend fun createDrawing(newDrawing: NewDrawing): CreateDrawingResult
 
-    suspend fun getSelectedDrawing(): SelectedDrawingResult
+    suspend fun getSelectedDrawingId(): SelectedDrawingIdResult
+    fun observeSelectedDrawing(): Flow<SelectedDrawingUpdate>
 
-    suspend fun saveDrawing(drawing: Drawing): SaveDrawingResult
+    suspend fun addParticipant(drawingId: String, participantId: String): AddParticipantResult
 }

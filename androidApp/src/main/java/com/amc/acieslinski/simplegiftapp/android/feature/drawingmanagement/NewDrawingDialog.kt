@@ -12,26 +12,20 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import com.amc.acieslinski.simplegiftapp.android.feature.drawingmanagement.model.NewDrawingDialogModelMapper
-import com.amc.acieslinski.simplegiftapp.drawingmanagement.presentation.model.NewDrawingAlertState
+import com.amc.acieslinski.simplegiftapp.drawingmanagement.presentation.NewDrawingAlertState
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun NewDrawingDialog(
-    newDrawingAlertState: NewDrawingAlertState,
+    alertState: NewDrawingAlertState,
     onDismiss: () -> Unit,
 ) {
-    val uiModel = remember(key1 = newDrawingAlertState) {
-        NewDrawingDialogModelMapper.mapToUiModel(newDrawingAlertState)
-    }
-
-    if (uiModel != null) {
+    if (alertState !is NewDrawingAlertState.Hidden) {
         Dialog(
             onDismissRequest = onDismiss
         ) {
@@ -39,7 +33,7 @@ fun NewDrawingDialog(
                 modifier = Modifier
                     .width(300.dp)
                     .height(200.dp),
-                color = Color.White,
+                color = MaterialTheme.colorScheme.surface,
                 shadowElevation = 8.dp,
                 shape = MaterialTheme.shapes.large
             ) {
@@ -50,12 +44,12 @@ fun NewDrawingDialog(
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text(text = stringResource(uiModel.messageStringId))
+                    Text(text = stringResource(alertState.messageRes))
                     Spacer(modifier = Modifier.height(16.dp))
                     Button(onClick = {
                         onDismiss()
                     }) {
-                        Text(text = stringResource(uiModel.closeStringId))
+                        Text(text = stringResource(alertState.closeLabelRes))
                     }
                 }
             }

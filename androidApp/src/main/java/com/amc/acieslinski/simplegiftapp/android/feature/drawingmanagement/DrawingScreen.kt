@@ -20,9 +20,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.amc.acieslinski.simplegiftapp.android.MyApplicationTheme
-import com.amc.acieslinski.simplegiftapp.android.navigation.ScannerNav
 import com.amc.acieslinski.simplegiftapp.drawingmanagement.presentation.DrawingViewModel
-import com.amc.acieslinski.simplegiftapp.drawingmanagement.presentation.FakeDrawingViewModel
+import com.amc.acieslinski.simplegiftapp.drawingmanagement.presentation.DrawingFakeViewModel
 import com.amc.acieslinski.simplegiftapp.drawingmanagement.presentation.ParticipantUiState
 import com.amc.acieslinski.simplegiftapp.resources.Res
 import com.amc.acieslinski.simplegiftapp.resources.drawing_management_close
@@ -35,7 +34,7 @@ import org.koin.androidx.compose.getViewModel
 @Composable
 fun DrawingScreen(
     viewModel: DrawingViewModel = getViewModel(),
-    navScanner: ScannerNav,
+    onAddParticipantClicked: () -> Unit,
 ) {
     val drawingState by viewModel.drawingUiState.collectAsState() // TODO lifecycle
 
@@ -66,11 +65,7 @@ fun DrawingScreen(
         ParticipantsList(participants = drawingState.participants)
 
         Button(
-            onClick = {
-                navScanner.startScannerScreen {
-                    viewModel.addParticipant(it)
-                }
-            },
+            onClick = onAddParticipantClicked,
             colors = ButtonDefaults.buttonColors(
                 containerColor = MaterialTheme.colorScheme.secondary,
                 contentColor = MaterialTheme.colorScheme.onSecondary
@@ -114,7 +109,11 @@ fun ParticipantsList(participants: List<ParticipantUiState>) {
 
 @Composable
 fun NameItem(name: String) {
-    BasicText(text = name, modifier = Modifier.padding(16.dp))
+    Text(
+        text = name,
+        style = MaterialTheme.typography.bodyMedium,
+        modifier = Modifier.padding(16.dp)
+    )
 }
 
 @Preview
@@ -122,8 +121,8 @@ fun NameItem(name: String) {
 fun DrawingScreenPreview() {
     MyApplicationTheme {
         DrawingScreen(
-            FakeDrawingViewModel(),
-            ScannerNav.DUMB
+            viewModel = DrawingFakeViewModel(),
+            onAddParticipantClicked = {},
         )
     }
 }

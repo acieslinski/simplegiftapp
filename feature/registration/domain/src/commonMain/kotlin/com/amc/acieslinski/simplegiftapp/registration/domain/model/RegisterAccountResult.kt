@@ -5,5 +5,5 @@ sealed class RegisterAccountResult(
 ) {
     data object Success: RegisterAccountResult(isSuccessful = true)
 
-    data object UnknownIssue: RegisterAccountResult()
+    data object UnknownFailure: RegisterAccountResult()
 }

@@ -5,5 +5,6 @@ import com.amc.acieslinski.simplegiftapp.registration.domain.repositories.Accoun
 class RegisterUseCase(
     private val accountRepository: AccountRepository
 ) {
-    operator fun invoke(name: String, surname: String) = accountRepository.register(name, surname)
+    suspend operator fun invoke(name: String, surname: String) =
+        accountRepository.register(name, surname)
 }

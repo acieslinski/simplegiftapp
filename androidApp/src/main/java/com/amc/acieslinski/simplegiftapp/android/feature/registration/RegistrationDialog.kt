@@ -12,28 +12,22 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import com.amc.acieslinski.simplegiftapp.registration.presentation.model.RegistrationDialogState
-import com.amc.acieslinski.simplegiftapp.android.feature.registration.model.RegistrationDialogModelMapper
-import com.amc.acieslinski.simplegiftapp.resources.Res
-import com.amc.acieslinski.simplegiftapp.resources.account_register_confirmation_close
+import com.amc.acieslinski.simplegiftapp.android.MyApplicationTheme
+import com.amc.acieslinski.simplegiftapp.registration.presentation.RegistrationAlertState
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun RegistrationDialog(
-    registrationNotification: RegistrationDialogState,
+    alertState: RegistrationAlertState,
     onDismiss: () -> Unit,
 ) {
-    val uiRegistrationNotification = remember(key1 = registrationNotification) {
-        RegistrationDialogModelMapper.mapToUiModel(registrationNotification)
-    }
-
-    if (uiRegistrationNotification != null) {
+    if (alertState !is RegistrationAlertState.Hidden) {
         Dialog(
             onDismissRequest = onDismiss
         ) {
@@ -52,16 +46,25 @@ fun RegistrationDialog(
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text(text = stringResource(uiRegistrationNotification.messageId))
+                    Text(text = stringResource(alertState.messageRes))
                     Spacer(modifier = Modifier.height(16.dp))
                     Button(onClick = {
                         onDismiss()
                     }) {
-                        // TODO if registration fails then the confirmation button should be invisible
-                        Text(text = stringResource(Res.string.account_register_confirmation_close))
+                        Text(text = stringResource(alertState.closeLabelRes))
                     }
                 }
             }
         }
+    }
+}
+
+@Preview
+@Composable
+fun RegistrationDialogPreview() {
+    MyApplicationTheme {
+        RegistrationDialog(
+            alertState = RegistrationAlertState.RegistrationUnknownFailure
+        ) {}
     }
 }

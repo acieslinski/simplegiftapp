@@ -7,7 +7,7 @@ data class Drawing(
     val title: String,
     val description: String,
     val createdDate: Instant,
-    val participants: List<User>,
+    val participants: List<DrawingParticipant>,
 //    val drawnParticipant: User?,
 //    val isDrawingClosed: Boolean,
 )

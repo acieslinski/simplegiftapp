@@ -8,7 +8,7 @@ import androidx.navigation.compose.composable
 import com.amc.acieslinski.simplegiftapp.android.feature.registration.RegistrationScreen
 import com.amc.acieslinski.simplegiftapp.android.feature.drawingmanagement.DrawingScreen
 import com.amc.acieslinski.simplegiftapp.android.feature.drawingmanagement.NewDrawingScreen
-import com.amc.acieslinski.simplegiftapp.android.feature.qrscanner.ScannerScreen
+import com.amc.acieslinski.simplegiftapp.android.feature.drawingmanagement.ParticipantQrScannerScreen
 import com.amc.acieslinski.simplegiftapp.android.feature.dashboard.DashboardScreen
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import org.koin.androidx.compose.getViewModel
@@ -19,13 +19,6 @@ fun AppNavHost(
     navController: NavHostController,
     modifier: Modifier = Modifier
 ) {
-    var scannerCallback: ((String) -> Unit)? = null
-    fun onCodeScanned(code: String) {
-        scannerCallback?.invoke(code)
-        scannerCallback = null
-        navController.navigateUp()
-    }
-
     NavHost(
         navController = navController,
         startDestination = Screens.REGISTRATION.route,
@@ -33,31 +26,36 @@ fun AppNavHost(
     ) {
         composable(Screens.REGISTRATION.route) {
             RegistrationScreen {
-                navController.navigate(Screens.WELCOME.route)
-            }
-        }
-        composable(Screens.QR_SCANNER.route) {
-            ScannerScreen(::onCodeScanned)
-        }
-        composable(Screens.DRAWING.route) {
-            val navScanner = object : ScannerNav {
-                override fun startScannerScreen(callback: (String) -> Unit) {
-                    scannerCallback = callback
-                    navController.navigate(Screens.QR_SCANNER.route)
+                navController.navigate(Screens.DASHBOARD.route) {
+                    popUpTo(Screens.REGISTRATION.route) { inclusive = true }
                 }
             }
-            DrawingScreen(getViewModel(), navScanner)
         }
-        composable(Screens.WELCOME.route) {
+        composable(Screens.DRAWING_PARTICIPANT_QR_SCANNER.route) {
+            ParticipantQrScannerScreen(
+                viewModel = getViewModel(),
+                onDismiss = navController::navigateUp
+            )
+        }
+        composable(Screens.DRAWING.route) {
+            DrawingScreen(
+                viewModel = getViewModel(),
+                onAddParticipantClicked = {
+                    navController.navigate(Screens.DRAWING_PARTICIPANT_QR_SCANNER.route)
+                }
+            )
+        }
+        composable(Screens.DASHBOARD.route) {
             DashboardScreen(
                 onDrawingAddClick = { navController.navigate(Screens.NEW_DRAWING.route) },
-                onDrawingClick = {navController.navigate(Screens.DRAWING.route)  },
+                onDrawingClick = { navController.navigate(Screens.DRAWING.route) },
             )
         }
         composable(Screens.NEW_DRAWING.route) {
-            NewDrawingScreen {
-                navController.navigateUp()
-            }
+            NewDrawingScreen(
+                viewModel = getViewModel(),
+                onNewDrawingDismissed = navController::navigateUp
+            )
         }
     }
 }

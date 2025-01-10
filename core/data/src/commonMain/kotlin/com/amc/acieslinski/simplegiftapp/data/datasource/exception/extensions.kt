@@ -1,6 +1,7 @@
 package com.amc.acieslinski.simplegiftapp.data.datasource.exception
 
 import io.ktor.client.statement.HttpResponse
+import io.ktor.http.HttpStatusCode
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.catch
@@ -13,7 +14,7 @@ suspend fun HttpResponse.withHandlingUnexpectedResponseStatus(
     if (status.value in 200..299) {
         block()
     } else {
-        throw ExceptionMapper.mapStatusCode(status)
+        throw status.toRequestException()
     }
 
     return this
@@ -22,9 +23,14 @@ suspend fun HttpResponse.withHandlingUnexpectedResponseStatus(
 @Throws(RequestException::class)
 fun HttpResponse.withHandlingUnexpectedResponseStatus(): HttpResponse {
     if (status.value !in 200..299) {
-        throw ExceptionMapper.mapStatusCode(status)
+        throw status.toRequestException()
     }
     return this
+}
+
+private fun HttpStatusCode.toRequestException(): RequestException = when(this) {
+    HttpStatusCode.NotFound -> RequestException.NotFoundException()
+    else -> RequestException.UnknownException()
 }
 
 inline fun <T> Flow<T>.catchRequestException(
@@ -37,25 +43,3 @@ inline fun <T> Flow<T>.catchRequestException(
             throw it
         }
     }
-
-@Deprecated("use sealed classes as results")
-inline fun <T, R> T.withHandlingRepositoryExceptions(block: T.() -> R): Result<R> {
-    return try {
-        Result.success(block())
-    } catch (e: CancellationException) {
-        throw e
-    } catch (e: Throwable) {
-        Result.failure(e)
-    }
-}
-
-@Deprecated("use sealed classes as results")
-inline fun <T> T.withHandlingRepositoryExceptions(block: T.() -> Unit): Result<Unit> {
-    return try {
-        Result.success(block())
-    } catch (e: CancellationException) {
-        throw e
-    } catch (e: Throwable) {
-        Result.failure(e)
-    }
-}

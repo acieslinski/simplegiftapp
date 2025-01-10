@@ -17,4 +17,8 @@
     <string name="drawing_creation_alert_close">Close</string>
     <string name="drawing_management_draw">Losuj znajomego do obdarowania!</string>
     <string name="drawing_management_close">Zamknij losowanie</string>
+    <string name="drawing_management_add_participant_success">Uczestnik został pomyślnie dodany!</string>
+    <string name="drawing_management_add_participant_failure">Nie udało się dodać uczestnika. Upewnij się, że kod QR jest prawidłowy i spróbuj ponownie.</string>
+    <string name="drawing_management_add_participant_close">Zamknij</string>
+
 </resources>

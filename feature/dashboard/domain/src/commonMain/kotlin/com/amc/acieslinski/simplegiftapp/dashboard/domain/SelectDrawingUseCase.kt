@@ -5,5 +5,5 @@ import com.amc.acieslinski.simplegiftapp.dashboard.domain.repositories.DrawingRe
 class SelectDrawingUseCase(
     private val drawingRepository: DrawingRepository
 ) {
-    operator fun invoke(drawingId: String) = drawingRepository.selectDrawing(drawingId)
+    suspend operator fun invoke(drawingId: String) = drawingRepository.selectDrawingId(drawingId)
 }
