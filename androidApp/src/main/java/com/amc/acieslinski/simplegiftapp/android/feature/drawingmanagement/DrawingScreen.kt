@@ -7,18 +7,17 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.text.BasicText
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.amc.acieslinski.simplegiftapp.android.MyApplicationTheme
 import com.amc.acieslinski.simplegiftapp.drawingmanagement.presentation.DrawingViewModel
 import com.amc.acieslinski.simplegiftapp.drawingmanagement.presentation.DrawingFakeViewModel
@@ -36,7 +35,7 @@ fun DrawingScreen(
     viewModel: DrawingViewModel = getViewModel(),
     onAddParticipantClicked: () -> Unit,
 ) {
-    val drawingState by viewModel.drawingUiState.collectAsState() // TODO lifecycle
+    val drawingState by viewModel.drawingUiState.collectAsStateWithLifecycle()
 
     Column(
         modifier = Modifier
@@ -82,10 +81,16 @@ fun DrawingScreen(
             Text(stringResource(Res.string.drawing_management_draw))
         }
 
+        drawingState.drawnParticipant?.let { with(it) {
+            Text(
+                text = "$name $surname",
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.padding(bottom = 16.dp)
+            )
+        } }
+
         Button(
-            onClick = {
-                // TODO
-            },
+            onClick = { viewModel.closeDrawingAction() },
             colors = ButtonDefaults.buttonColors(
                 containerColor = MaterialTheme.colorScheme.error,
                 contentColor = MaterialTheme.colorScheme.onError

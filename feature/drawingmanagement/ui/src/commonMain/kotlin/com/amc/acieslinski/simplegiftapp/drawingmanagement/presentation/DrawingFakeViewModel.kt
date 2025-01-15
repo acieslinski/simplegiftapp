@@ -14,7 +14,14 @@ class DrawingFakeViewModel : DrawingViewModel() {
                 ParticipantUiState(
                     "name", "surname", "id"
                 )
+            ),
+            drawnParticipant = ParticipantUiState(
+                "name", "surname", "id"
             )
         )
     )
+
+    override fun closeDrawingAction() {
+        TODO("Not yet implemented")
+    }
 }

@@ -18,7 +18,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,6 +27,7 @@ import com.amc.acieslinski.simplegiftapp.dashboard.presentation.DashboardViewMod
 import org.koin.androidx.compose.getViewModel
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.amc.acieslinski.simplegiftapp.dashboard.presentation.DashboardUiState
 import com.amc.acieslinski.simplegiftapp.dashboard.presentation.DrawingUiState
 import com.amc.acieslinski.simplegiftapp.dashboard.presentation.FakeDashboardViewModel
@@ -39,7 +39,7 @@ fun DashboardScreen(
     onDrawingAddClick: () -> Unit = {},
     onDrawingClick: (drawingId: String) -> Unit = {},
 ) {
-    val drawingState by viewModel.dashboardUiState.collectAsState() // TODO lifecycle
+    val drawingState by viewModel.dashboardUiState.collectAsStateWithLifecycle()
 
     Box(modifier = Modifier.fillMaxSize()) {
         Column {

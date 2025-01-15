@@ -1,4 +1,4 @@
-package com.amc.acieslinski.simplegiftapp.registration.data.datasource.account.model
+package com.amc.acieslinski.simplegiftapp.data.datasource.account.model
 
 data class AccountDatabaseModel(
     val name: String,

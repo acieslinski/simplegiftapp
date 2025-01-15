@@ -13,8 +13,8 @@ data class DrawingResponseModel(
     val description: String,
     @SerialName("participants")
     val participantsIds: List<String>,
-//    @SerialName("drawnParticipant")
-//    val drawnParticipantPublicToken: String?,
-//    val isDrawingClosed: Boolean,
+    @SerialName("drawnParticipant")
+    val drawnParticipantId: String?,
+    val isLobbyClosed: Boolean,
     val createdDate: Instant = DEFAULT_CREATED_DATE,
 )

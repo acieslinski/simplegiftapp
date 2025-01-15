@@ -1,7 +1,9 @@
-package com.amc.acieslinski.simplegiftapp.registration.data.datasource.account
+package com.amc.acieslinski.simplegiftapp.data.datasource.account
 
+import com.amc.acieslinski.simplegiftapp.TEST_PRIVATE_TOKEN
+import com.amc.acieslinski.simplegiftapp.TEST_PUBLIC_TOKEN
 import com.amc.acieslinski.simplegiftapp.configuration
-import com.amc.acieslinski.simplegiftapp.registration.data.datasource.account.model.AccountDatabaseModel
+import com.amc.acieslinski.simplegiftapp.data.datasource.account.model.AccountDatabaseModel
 
 class AccountLocalFakeDataSource(
 ): AccountLocalDataSource {
@@ -12,8 +14,8 @@ class AccountLocalFakeDataSource(
             account = AccountDatabaseModel(
                 name = "test name",
                 surname = "test surname",
-                public = "test public token",
-                private = "test private token",
+                public = TEST_PUBLIC_TOKEN,
+                private = TEST_PRIVATE_TOKEN,
             )
         }
     }

@@ -1,5 +1,6 @@
 package com.amc.acieslinski.simplegiftapp.drawingmanagement.presentation
 
+import com.amc.acieslinski.simplegiftapp.drawingmanagement.domain.CloseSelectedDrawingUseCase
 import com.amc.acieslinski.simplegiftapp.presentation.BaseViewModel
 import com.amc.acieslinski.simplegiftapp.drawingmanagement.domain.ObserveSelectedDrawingUseCase
 import com.amc.acieslinski.simplegiftapp.drawingmanagement.domain.model.Drawing
@@ -11,17 +12,20 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import kotlinx.datetime.Instant
 
 abstract class DrawingViewModel(
 ) : BaseViewModel() {
     abstract val drawingUiState: StateFlow<DrawingUiState>
+
+    abstract fun closeDrawingAction()
 }
 
 class DrawingLiveViewModel(
     private val observeSelectedDrawingUseCase: ObserveSelectedDrawingUseCase,
+    private val closeSelectedDrawingUseCase: CloseSelectedDrawingUseCase,
 ) : DrawingViewModel() {
-    private val _drawingUiState = MutableStateFlow(DrawingUiState())
     override val drawingUiState: StateFlow<DrawingUiState> = observeSelectedDrawingUseCase()
         .map {
             when (it) {
@@ -30,6 +34,12 @@ class DrawingLiveViewModel(
             }
         }
         .stateIn(scope, SharingStarted.WhileSubscribed(), DrawingUiState.LOADING)
+
+    override fun closeDrawingAction() {
+        scope.launch {
+            closeSelectedDrawingUseCase()
+        }
+    }
 }
 
 data class ParticipantUiState(
@@ -43,6 +53,7 @@ data class DrawingUiState(
     val title: String = "",
     val details: String = "",
     val participants: List<ParticipantUiState> = emptyList(),
+    val drawnParticipant: ParticipantUiState? = null,
     val isLoading: Boolean = false,
     val isDrawingNotAvailable: Boolean = false,
     val isError: Boolean = false,
@@ -66,6 +77,7 @@ fun Drawing.toUiState() = DrawingUiState(
     title = title,
     details = description,
     participants = participants.map { it.toUiState() },
+    drawnParticipant = drawnParticipant?.toUiState(),
     isLoading = false,
     date = createdDate,
 )

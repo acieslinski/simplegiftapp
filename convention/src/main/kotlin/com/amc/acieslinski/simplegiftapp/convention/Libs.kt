@@ -54,20 +54,17 @@ fun KotlinDependencyHandler.baseIos() {
 
 fun KotlinDependencyHandler.dataMain() {
     baseMain()
-    api(project(":core:database"))
-    api(project(":core:network"))
+    api(project(":core:data"))
 }
 
 fun KotlinDependencyHandler.dataAndroid() {
     baseAndroid()
-    api(project(":core:database"))
-    api(project(":core:network"))
+    api(project(":core:data"))
 }
 
 fun KotlinDependencyHandler.dataIos() {
     baseIos()
-    api(project(":core:database"))
-    api(project(":core:network"))
+    api(project(":core:data"))
     implementation(versionCatalog.findLibrary("sql-native-driver").get())
 }
 

@@ -1,7 +1,9 @@
 package com.amc.acieslinski.simplegiftapp.drawingmanagement.data.repository.drawing
 
 import com.amc.acieslinski.simplegiftapp.drawingmanagement.domain.model.AddParticipantResult
+import com.amc.acieslinski.simplegiftapp.drawingmanagement.domain.model.CloseDrawingLobbyResult
 import com.amc.acieslinski.simplegiftapp.drawingmanagement.domain.model.CreateDrawingResult
+import com.amc.acieslinski.simplegiftapp.drawingmanagement.domain.model.DrawParticipantsResult
 import com.amc.acieslinski.simplegiftapp.drawingmanagement.domain.model.Drawing
 import com.amc.acieslinski.simplegiftapp.drawingmanagement.domain.model.DrawingParticipant
 import com.amc.acieslinski.simplegiftapp.drawingmanagement.domain.model.NewDrawing
@@ -21,6 +23,7 @@ class DrawingFakeRepository : DrawingRepository {
         description = "Test drawing of participants pairs",
         createdDate = Clock.System.now(),
         participants = emptyList(),
+        drawnParticipant = null,
     )
 
     override suspend fun createDrawing(newDrawing: NewDrawing): CreateDrawingResult {
@@ -51,5 +54,23 @@ class DrawingFakeRepository : DrawingRepository {
             )
         )
         return AddParticipantResult.Success
+    }
+
+    override suspend fun drawParticipants(drawingId: String): DrawParticipantsResult {
+        selectedDrawing = selectedDrawing.copy(drawnParticipant = DrawingParticipant(
+            id = "mock-id",
+            name = "testname",
+            surname = "testsurname",
+        ))
+        return DrawParticipantsResult.Success
+    }
+
+    override suspend fun closeLobby(drawingId: String): CloseDrawingLobbyResult {
+        return if (!selectedDrawing.isLobbyClosed) {
+            selectedDrawing = selectedDrawing.copy(isLobbyClosed = true)
+            CloseDrawingLobbyResult.Success()
+        } else {
+            CloseDrawingLobbyResult.AlreadyClosed
+        }
     }
 }

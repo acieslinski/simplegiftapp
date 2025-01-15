@@ -14,7 +14,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -22,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.amc.acieslinski.simplegiftapp.registration.presentation.RegistrationViewModel
 import com.amc.acieslinski.simplegiftapp.android.MyApplicationTheme
 import com.amc.acieslinski.simplegiftapp.registration.presentation.RegistrationUiState
@@ -39,8 +39,8 @@ fun RegistrationScreen(
 ) {
     val firstInputText = rememberSaveable { mutableStateOf("") }
     val secondInputText = rememberSaveable { mutableStateOf("") }
-    val registrationState by viewModel.registrationUiState.collectAsState() // TODO lifecycle
-    val registrationDialogState by viewModel.registrationDialogState.collectAsState()
+    val registrationState by viewModel.registrationUiState.collectAsStateWithLifecycle()
+    val registrationDialogState by viewModel.registrationDialogState.collectAsStateWithLifecycle()
 
     if (registrationState.isRegistrationAck) {
         onRegistrationDone()

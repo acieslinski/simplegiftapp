@@ -8,7 +8,6 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(projects.core.data)
                 implementation(projects.feature.registration.domain)
             }
         }

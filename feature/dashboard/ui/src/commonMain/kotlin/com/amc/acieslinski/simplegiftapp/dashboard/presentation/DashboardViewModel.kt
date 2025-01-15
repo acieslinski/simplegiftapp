@@ -28,13 +28,13 @@ class DashboardViewModelImpl(
     private val selectDrawingUseCase: SelectDrawingUseCase,
 ) : DashboardViewModel() {
     private val _dashboardUiState = flow {
-            when (val result = getDrawingsUseCase()) {
-                is DrawingsResult.Success -> result.drawings.toUiState()
-                is DrawingsResult.UnknownFailure -> DashboardUiState.DrawingsListFailure
-            }.run {
-                emit(this)
-            }
-        }.stateIn(scope, SharingStarted.WhileSubscribed(), DashboardUiState.Empty)
+        when (val result = getDrawingsUseCase()) {
+            is DrawingsResult.Success -> result.drawings.toUiState()
+            is DrawingsResult.UnknownFailure -> DashboardUiState.DrawingsListFailure
+        }.run {
+            emit(this)
+        }
+    }.stateIn(scope, SharingStarted.WhileSubscribed(), DashboardUiState.Empty)
     override val dashboardUiState = _dashboardUiState
 
     override fun onSelectDrawingAction(drawingId: String) {
@@ -62,9 +62,9 @@ sealed interface DashboardUiState {
         val drawings: List<DrawingUiState>
     ) : DashboardUiState
 
-    sealed interface Failure: DashboardUiState
+    sealed interface Failure : DashboardUiState
 
-    data object DrawingsListFailure: Failure
+    data object DrawingsListFailure : Failure
 }
 
 fun Drawing.toUiState() = DrawingUiState(
@@ -74,9 +74,8 @@ fun Drawing.toUiState() = DrawingUiState(
     createdDate = createdDate,
 )
 
-fun List<Drawing>.toUiState() =
-    map { it.toUiState() }.
-    let {
+fun List<Drawing>.toUiState() = map { it.toUiState() }
+    .let {
         if (isNotEmpty()) {
             DashboardUiState.Success(drawings = it)
         } else {

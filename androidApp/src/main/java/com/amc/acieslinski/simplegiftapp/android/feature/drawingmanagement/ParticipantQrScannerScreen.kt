@@ -14,7 +14,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -23,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.amc.acieslinski.simplegiftapp.android.components.qrscanner.ScannerView
 import com.amc.acieslinski.simplegiftapp.drawingmanagement.presentation.ParticipantQrScannerFakeViewModel
 import com.amc.acieslinski.simplegiftapp.drawingmanagement.presentation.ParticipantQrScannerViewModel
@@ -43,8 +43,9 @@ fun ParticipantQrScannerScreen(
     viewModel: ParticipantQrScannerViewModel = getViewModel(),
     onDismiss: () -> Unit,
 ) {
-    val isDismissed = remember { mutableStateOf(false) } // to resolve issue with not disappearing scanner box on navigating back
-    val state by viewModel.participantQrScannerUiState.collectAsState() // TODO lifecycle
+    // to resolve issue with not disappearing scanner box on navigating back
+    val isDismissed = remember { mutableStateOf(false) }
+    val state by viewModel.participantQrScannerUiState.collectAsStateWithLifecycle()
     val cameraPermissionState = rememberPermissionState(android.Manifest.permission.CAMERA)
 
     BackHandler {

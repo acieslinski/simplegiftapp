@@ -1,6 +1,6 @@
-package com.amc.acieslinski.simplegiftapp.registration.data.datasource.account
+package com.amc.acieslinski.simplegiftapp.data.datasource.account
 
-import com.amc.acieslinski.simplegiftapp.registration.data.datasource.account.model.AccountDatabaseModel
+import com.amc.acieslinski.simplegiftapp.data.datasource.account.model.AccountDatabaseModel
 import com.amc.acieslinski.simplegiftapp.db.SimpleGiftAppDatabase
 
 class AccountLocalLiveDataSource(

@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.amc.acieslinski.simplegiftapp.drawingmanagement.presentation.NewDrawingViewModel
 import org.koin.androidx.compose.getViewModel
 
@@ -16,8 +17,8 @@ fun NewDrawingScreen(
     viewModel: NewDrawingViewModel = getViewModel(),
     onNewDrawingDismissed: () -> Unit = {}
 ) {
-    val state by viewModel.newDrawingUiState.collectAsState() // TODO lifecycle
-    val alertState by viewModel.newDrawingAlertState.collectAsState()
+    val state by viewModel.newDrawingUiState.collectAsStateWithLifecycle()
+    val alertState by viewModel.newDrawingAlertState.collectAsStateWithLifecycle()
 
     Column(
         modifier = Modifier

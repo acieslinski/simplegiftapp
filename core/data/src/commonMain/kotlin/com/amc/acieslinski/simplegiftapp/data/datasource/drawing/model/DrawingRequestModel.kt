@@ -12,9 +12,9 @@ data class DrawingRequestModel(
     val title: String,
     val description: String,
     @SerialName("participants")
-    val participantsTokens: List<String>,
-//    @SerialName("drawnParticipant")
-//    val drawnParticipantPublicToken: String?,
-//    val isDrawingClosed: Boolean,
+    val participantsIds: List<String>,
+    @SerialName("drawnParticipant")
+    val drawnParticipantId: String?,
+    val isLobbyClosed: Boolean,
     val createdDate: Instant = Instant.fromEpochSeconds(INITIAL_TIME),
 )

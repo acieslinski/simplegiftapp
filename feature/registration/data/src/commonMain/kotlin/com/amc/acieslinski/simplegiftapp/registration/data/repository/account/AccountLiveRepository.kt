@@ -1,9 +1,9 @@
 package com.amc.acieslinski.simplegiftapp.registration.data.repository.account
 
+import com.amc.acieslinski.simplegiftapp.data.datasource.account.AccountLocalDataSource
 import com.amc.acieslinski.simplegiftapp.data.repository.Repository
-import com.amc.acieslinski.simplegiftapp.registration.data.datasource.account.AccountLocalDataSource
 import com.amc.acieslinski.simplegiftapp.registration.data.datasource.account.AccountRemoteDataSource
-import com.amc.acieslinski.simplegiftapp.registration.data.datasource.account.model.AccountDatabaseModel
+import com.amc.acieslinski.simplegiftapp.data.datasource.account.model.AccountDatabaseModel
 import com.amc.acieslinski.simplegiftapp.registration.data.datasource.account.model.AccountResponseModel
 import com.amc.acieslinski.simplegiftapp.registration.domain.model.RegisterAccountResult
 import com.amc.acieslinski.simplegiftapp.registration.domain.repositories.AccountRepository
