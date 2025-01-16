@@ -13,6 +13,6 @@ import org.koin.dsl.module
 actual val platformDrawingUiModule = module {
     // ui
     viewModel { DrawingLiveViewModel(get(), get()) as DrawingViewModel }
-    viewModel { ParticipantQrScannerLiveViewModel(get()) as ParticipantQrScannerViewModel }
+    viewModel { ParticipantQrScannerLiveViewModel(get(), get()) as ParticipantQrScannerViewModel }
     viewModel { NewDrawingLiveViewModel(get()) as NewDrawingViewModel }
 }

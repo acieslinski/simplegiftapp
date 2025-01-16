@@ -1,11 +1,13 @@
 package com.amc.acieslinski.simplegiftapp.drawingmanagement.presentation
 
 import com.amc.acieslinski.simplegiftapp.drawingmanagement.domain.AddParticipantToSelectedDrawingUseCase
+import com.amc.acieslinski.simplegiftapp.drawingmanagement.domain.IsParticipantAddedToSelectedDrawingUseCase
 import com.amc.acieslinski.simplegiftapp.drawingmanagement.domain.model.AddParticipantResult
 import com.amc.acieslinski.simplegiftapp.presentation.BaseViewModel
 import com.amc.acieslinski.simplegiftapp.resources.Res
 import com.amc.acieslinski.simplegiftapp.resources.drawing_management_add_participant_close
-import com.amc.acieslinski.simplegiftapp.resources.drawing_management_add_participant_failure
+import com.amc.acieslinski.simplegiftapp.resources.drawing_management_add_participant_failure_already_added
+import com.amc.acieslinski.simplegiftapp.resources.drawing_management_add_participant_failure_unknown
 import com.amc.acieslinski.simplegiftapp.resources.drawing_management_add_participant_success
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -19,11 +21,13 @@ abstract class ParticipantQrScannerViewModel(
     abstract val participantQrScannerUiState: StateFlow<ParticipantQrScannerUiState>
 
     abstract fun onAddParticipantAction(userToken: String)
+
     abstract fun onAlertAckAction()
 }
 
 class ParticipantQrScannerLiveViewModel(
     private val addParticipantToSelectedDrawingUseCase: AddParticipantToSelectedDrawingUseCase,
+    private val isParticipantAddedToSelectedDrawingUseCase: IsParticipantAddedToSelectedDrawingUseCase,
 ) : ParticipantQrScannerViewModel() {
     private val uiState = MutableStateFlow(ParticipantQrScannerUiState())
     override val participantQrScannerUiState = uiState.asStateFlow()
@@ -32,8 +36,12 @@ class ParticipantQrScannerLiveViewModel(
         if (uiState.value.isReadyToAddParticipant()) {
             uiState.update { it.copy(isAdding = true) }
             scope.launch {
-                val result = addParticipantToSelectedDrawingUseCase(userToken)
-                uiState.update { result.toUiState() }
+                if (isParticipantAddedToSelectedDrawingUseCase(userToken)) {
+                    uiState.update { ParticipantQrScannerUiState.alreadyAddedFailure() }
+                } else {
+                    val result = addParticipantToSelectedDrawingUseCase(userToken)
+                    uiState.update { result.toUiState() }
+                }
             }
         }
     }
@@ -52,25 +60,33 @@ data class ParticipantQrScannerUiState(
     fun isReadyToAddParticipant(): Boolean = !(isAdded || isFailure || isAdding)
 
     companion object {
-        fun added() = ParticipantQrScannerUiState(
+        fun success() = ParticipantQrScannerUiState(
             isAdding = false,
             isAdded = true,
             alertState = ParticipantQrScannerAlertState.success()
         )
 
-        fun failed() =
+        fun unknownFailure() =
             ParticipantQrScannerUiState(
                 isAdding = false,
                 isAdded = false,
                 isFailure = true,
-                alertState = ParticipantQrScannerAlertState.failed()
+                alertState = ParticipantQrScannerAlertState.unknownFailure()
+            )
+
+        fun alreadyAddedFailure() =
+            ParticipantQrScannerUiState(
+                isAdding = false,
+                isAdded = true,
+                isFailure = true,
+                alertState = ParticipantQrScannerAlertState.participantAlreadyAdded()
             )
     }
 }
 
 fun AddParticipantResult.toUiState() = when (this) {
-    is AddParticipantResult.Success -> ParticipantQrScannerUiState.added()
-    is AddParticipantResult.UnknownFailure -> ParticipantQrScannerUiState.failed()
+    is AddParticipantResult.Success -> ParticipantQrScannerUiState.success()
+    is AddParticipantResult.UnknownFailure -> ParticipantQrScannerUiState.unknownFailure()
 }
 
 data class ParticipantQrScannerAlertState(
@@ -79,9 +95,14 @@ data class ParticipantQrScannerAlertState(
     val closeLabelRes: StringResource = Res.string.drawing_management_add_participant_close,
 ) {
     companion object {
-        fun failed() = ParticipantQrScannerAlertState(
+        fun unknownFailure() = ParticipantQrScannerAlertState(
             isHidden = false,
-            messageRes = Res.string.drawing_management_add_participant_failure,
+            messageRes = Res.string.drawing_management_add_participant_failure_unknown,
+        )
+
+        fun participantAlreadyAdded() = ParticipantQrScannerAlertState(
+            isHidden = false,
+            messageRes = Res.string.drawing_management_add_participant_failure_already_added,
         )
 
         fun success() = ParticipantQrScannerAlertState(

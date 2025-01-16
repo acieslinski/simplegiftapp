@@ -45,69 +45,106 @@ fun DrawingScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
+        // Display Date
         Text(
             text = drawingState.getFormattedDate(),
             style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.padding(bottom = 8.dp)
         )
+
+        // Title
         Text(
             text = drawingState.title,
-            style = MaterialTheme.typography.titleMedium,
+            style = MaterialTheme.typography.titleLarge,
             modifier = Modifier.padding(bottom = 8.dp)
         )
+
+        // Details
         Text(
             text = drawingState.details,
             style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.padding(bottom = 16.dp)
         )
 
+        // Participant List
         ParticipantsList(participants = drawingState.participants)
 
+        // Add Participant Button
         Button(
             onClick = onAddParticipantClicked,
+            enabled = drawingState.isAddingParticipantAvailable,
+            shape = MaterialTheme.shapes.medium,
             colors = ButtonDefaults.buttonColors(
                 containerColor = MaterialTheme.colorScheme.secondary,
                 contentColor = MaterialTheme.colorScheme.onSecondary
-            )
+            ),
+            modifier = Modifier.fillMaxWidth(0.8f)
         ) {
             Text(stringResource(Res.string.drawing_participants_add))
         }
 
+        // Draw Participant Button
         Button(
-            onClick = {
-                // TODO
-            },
+            onClick = viewModel::onDrawParticipantAction,
+            enabled = drawingState.isDrawingAvailable,
+            shape = MaterialTheme.shapes.medium,
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.primary,
+                contentColor = MaterialTheme.colorScheme.onPrimary
+            ),
+            modifier = Modifier.fillMaxWidth(0.8f)
         ) {
             Text(stringResource(Res.string.drawing_management_draw))
         }
 
+        // Display Drawn Participant (if available)
         drawingState.drawnParticipant?.let { with(it) {
             Text(
                 text = "$name $surname",
                 style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.padding(bottom = 16.dp)
+                color = MaterialTheme.colorScheme.onSurface,
+                modifier = Modifier.padding(top = 16.dp, bottom = 16.dp)
             )
         } }
 
+        // Close Drawing Button
         Button(
-            onClick = { viewModel.closeDrawingAction() },
+            onClick = viewModel::onCloseDrawingAction,
+            enabled = drawingState.isCloseDrawingAvailable,
+            shape = MaterialTheme.shapes.medium,
             colors = ButtonDefaults.buttonColors(
                 containerColor = MaterialTheme.colorScheme.error,
                 contentColor = MaterialTheme.colorScheme.onError
-            )
+            ),
+            modifier = Modifier.fillMaxWidth(0.8f)
         ) {
             Text(stringResource(Res.string.drawing_management_close))
         }
+    }
+
+    // Drawing Dialog
+    DrawingDialog(alertState = drawingState.drawingAlertState) {
+        viewModel.onAlertAckAction()
     }
 }
 
 @Composable
 fun ParticipantsList(participants: List<ParticipantUiState>) {
-    Text(stringResource(Res.string.drawing_participants_title))
+    Column(modifier = Modifier.fillMaxWidth()) {
+        // Participants List Title
+        Text(
+            text = stringResource(Res.string.drawing_participants_title),
+            style = MaterialTheme.typography.titleMedium,
+            modifier = Modifier.padding(8.dp)
+        )
 
-    LazyColumn {
-        items(participants) { (name, surname) ->
-            NameItem("$name $surname")
+        // Participants Items
+        LazyColumn {
+            items(participants) { (name, surname) ->
+                NameItem("$name $surname")
+            }
         }
     }
 }
@@ -117,7 +154,8 @@ fun NameItem(name: String) {
     Text(
         text = name,
         style = MaterialTheme.typography.bodyMedium,
-        modifier = Modifier.padding(16.dp)
+        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+        color = MaterialTheme.colorScheme.onSurface
     )
 }
 

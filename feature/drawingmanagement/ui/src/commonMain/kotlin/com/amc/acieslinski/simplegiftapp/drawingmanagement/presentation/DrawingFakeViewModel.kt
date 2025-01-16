@@ -21,7 +21,15 @@ class DrawingFakeViewModel : DrawingViewModel() {
         )
     )
 
-    override fun closeDrawingAction() {
+    override fun onCloseDrawingAction() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onDrawParticipantAction() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onAlertAckAction() {
         TODO("Not yet implemented")
     }
 }

@@ -21,6 +21,7 @@ import com.amc.acieslinski.simplegiftapp.drawingmanagement.domain.CloseSelectedD
 import com.amc.acieslinski.simplegiftapp.drawingmanagement.domain.CloseSelectedDrawingUseCase
 import com.amc.acieslinski.simplegiftapp.drawingmanagement.domain.CreateDrawingUseCase
 import com.amc.acieslinski.simplegiftapp.drawingmanagement.domain.DrawSelectedDrawingParticipantsUseCase
+import com.amc.acieslinski.simplegiftapp.drawingmanagement.domain.IsParticipantAddedToSelectedDrawingUseCase
 import com.amc.acieslinski.simplegiftapp.drawingmanagement.domain.ObserveSelectedDrawingUseCase
 import com.amc.acieslinski.simplegiftapp.drawingmanagement.domain.repositories.DrawingRepository
 import org.koin.dsl.module
@@ -45,5 +46,6 @@ val commonDrawingDomainModule = module {
     single<DrawSelectedDrawingParticipantsUseCase> { DrawSelectedDrawingParticipantsUseCase(get()) }
     single<CloseSelectedDrawingUseCase> { CloseSelectedDrawingUseCase(get(), get()) }
     single<CloseSelectedDrawingLobbyUseCase> { CloseSelectedDrawingLobbyUseCase(get()) }
+    single<IsParticipantAddedToSelectedDrawingUseCase> { IsParticipantAddedToSelectedDrawingUseCase(get()) }
 }
 val drawingManagementModule = commonDrawingDataModule + commonDrawingDomainModule + platformDrawingUiModule
