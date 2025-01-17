@@ -28,7 +28,8 @@ import org.koin.androidx.compose.getViewModel
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.amc.acieslinski.simplegiftapp.dashboard.presentation.DashboardUiState
+import com.amc.acieslinski.simplegiftapp.dashboard.presentation.DashboardAlertState
+import com.amc.acieslinski.simplegiftapp.dashboard.presentation.DrawingsUiState
 import com.amc.acieslinski.simplegiftapp.dashboard.presentation.DrawingUiState
 import com.amc.acieslinski.simplegiftapp.dashboard.presentation.FakeDashboardViewModel
 import com.amc.acieslinski.simplegiftapp.dashboard.presentation.getFormattedDate
@@ -39,7 +40,7 @@ fun DashboardScreen(
     onDrawingAddClick: () -> Unit = {},
     onDrawingClick: (drawingId: String) -> Unit = {},
 ) {
-    val drawingState by viewModel.dashboardUiState.collectAsStateWithLifecycle()
+    val dashboardState by viewModel.dashboardUiState.collectAsStateWithLifecycle()
 
     Box(modifier = Modifier.fillMaxSize()) {
         Column {
@@ -51,7 +52,7 @@ fun DashboardScreen(
             )
 
             Button(
-                onClick = { /*TODO*/ },
+                onClick = { viewModel.onShowUserPublicIdQrCodeAction() },
                 modifier = Modifier
                     .padding(horizontal = 16.dp) // Button takes full width with horizontal padding
                     .fillMaxWidth()
@@ -70,8 +71,8 @@ fun DashboardScreen(
                 style = MaterialTheme.typography.titleMedium
             )
 
-            when (val state = drawingState) {
-                is DashboardUiState.Success -> {
+            when (val state = dashboardState.drawingsState) {
+                is DrawingsUiState.Success -> {
                     LazyColumn(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -86,7 +87,7 @@ fun DashboardScreen(
                     }
                 }
 
-                is DashboardUiState.Loading -> {
+                is DrawingsUiState.Loading -> {
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
@@ -108,6 +109,14 @@ fun DashboardScreen(
                     )
                 }
             }
+        }
+
+        UserPublicIdQrCodeDialog(dialogState = dashboardState.userPublicIdQrCodeUiState) {
+            viewModel.onHideUserPublicIdQrCodeAction()
+        }
+
+        DashboardDialog(alertState = dashboardState.alertState) {
+            viewModel.onAlertAckAction()
         }
 
         FloatingActionButton(

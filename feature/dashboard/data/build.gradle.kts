@@ -8,6 +8,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                implementation(libs.qrcode.kotlin)
                 implementation(projects.feature.dashboard.domain)
             }
         }

@@ -25,4 +25,9 @@
     <string name="drawing_management_draw_participant_unavailable_close">OK</string>
     <string name="drawing_management_error_unknown">An error occurred. Please try again later</string>
     <string name="drawing_management_error_close">Ok</string>
+    <string name="dashboard_drawings_failure_unknown">The list of drawings is not available. Please check connection or try again later</string>
+    <string name="dashboard_drawings_failure_close">Ok</string>
+    <string name="dashboard_qrcode_failure_unknown">An error occurred. Please try again</string>
+    <string name="dashboard_qrcode_failure_close">Ok</string>
+    <string name="dashboard_qrcode_hint">Show the QR code to your friend who created the gift event to join</string>
 </resources>

@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -43,7 +44,7 @@ class DrawingLiveViewModel(
 
     @OptIn(ExperimentalCoroutinesApi::class)
     override val drawingUiState: StateFlow<DrawingUiState> = observeSelectedDrawingUseCase()
-        .map {
+        .onEach {
             with(localDrawingUiState.value) {
                 when (it) {
                     is SelectedDrawingUpdate.Success -> success(it.drawing)
@@ -53,9 +54,7 @@ class DrawingLiveViewModel(
                 }
             }
         }
-        .flatMapLatest {
-            localDrawingUiState
-        }
+        .flatMapLatest { localDrawingUiState }
         .stateIn(scope, SharingStarted.WhileSubscribed(), DrawingUiState.INITIAL)
 
     override fun onCloseDrawingAction() {

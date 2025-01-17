@@ -8,5 +8,5 @@ import org.koin.dsl.module
 @Suppress("USELESS_CAST")
 actual val platformDashboardUiModule = module {
     // ui
-    viewModel { DashboardViewModelImpl(get(), get()) as DashboardViewModel }
+    viewModel { DashboardViewModelImpl(get(), get(), get()) as DashboardViewModel }
 }
